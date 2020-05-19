@@ -13,7 +13,7 @@ class HomePageController extends Controller
 {
     function __construct()
     {
-        $this->middleware('verified');
+
         $products = Products::all();
         $categories = Categories::all();
         $suppliers = Suppliers::all();
@@ -30,7 +30,9 @@ class HomePageController extends Controller
     function index()
     {
         if (Auth::check()) {
-            $this->middleware(['auth', 'verified']);
+            if (Auth::user()->email_verified_at === null) {
+                return view('Pages.VerifyAlert');
+            }
         }
         return view('Pages.Home');
     }

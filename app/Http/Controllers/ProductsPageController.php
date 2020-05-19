@@ -7,6 +7,7 @@ use App\Products;
 use App\Categories;
 use App\Suppliers;
 use App\Colors;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsPageController extends Controller
 {
@@ -29,6 +30,11 @@ class ProductsPageController extends Controller
 
     function index()
     {
+        if (Auth::check()) {
+            if (Auth::user()->email_verified_at === null) {
+                return view('Pages.VerifyAlert');
+            }
+        }
         $products = new Products();
 
         if (request()->has('search')) {

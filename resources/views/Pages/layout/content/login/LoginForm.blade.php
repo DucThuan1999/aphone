@@ -41,6 +41,13 @@
                                 </div>
                             </div>
                             @endif
+                            @if(session('loginAlertSuccess'))
+                            <div class="col-md-12">
+                                <div class="alert alert-success">
+                                    {{session('loginAlertSuccess')}}
+                                </div>
+                            </div>
+                            @endif
                             <div class="col-md-8">
                                 <button class="register-button mt-0">Đăng nhập</button>
                             </div>

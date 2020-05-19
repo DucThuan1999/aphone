@@ -43,7 +43,7 @@ Route::group(['prefix' => 'register'], function () {
     Route::post('/', 'RegisterPageController@postRegister')->name('register.post');
 });
 
-// Route::get('/verify', 'VerificationController');
+Route::get('/verify', 'VerifyPageController@index');
 
 Route::group(['prefix' => 'ajax'], function () {
     Route::get('{id}', 'AjaxController@getProductQuickView');

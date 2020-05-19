@@ -52,8 +52,6 @@ class RegisterPageController extends Controller
 
         // return (new StatusUpdate($user))->toMail($user);
 
-        // return redirect('/register')->with('registerAlert',  'Đăng ký thành công !!!');
-
-        return redirect('/verify');
+        return redirect('/login')->with('loginAlertSuccess',  'Đăng ký thành công !!! Email xác nhận đã được gửi đến email của bạn, vui lòng xác nhận để hoàn tất việc đăng ký !!!');
     }
 }
