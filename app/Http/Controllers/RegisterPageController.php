@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VerifyMail;
 use App\Users;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\App;
 // use App\Notifications\StatusUpdate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterPageController extends Controller
 {
@@ -51,7 +53,7 @@ class RegisterPageController extends Controller
         // Auth::attempt(['email' => $user->email, 'password' => $user->password]);
 
         // return (new StatusUpdate($user))->toMail($user);
-
+        Mail::to($user)->send(new VerifyMail($user));
         return redirect('/login')->with('loginAlertSuccess',  'Đăng ký thành công !!! Email xác nhận đã được gửi đến email của bạn, vui lòng xác nhận để hoàn tất việc đăng ký !!!');
     }
 }

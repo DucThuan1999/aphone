@@ -21,7 +21,7 @@
                             <div class="setting ht-setting">
                                 @if(Auth::check())
                                 <ul class="ht-setting-list">
-                                    <li><a href="/user">{{Auth::user()->firstname}}
+                                    <li><a href="/infouser">{{Auth::user()->firstname}}
                                             {{Auth::user()->lastname}}</a></li>
                                     <li><a href="/logout">Đăng xuất</a></li>
                                 </ul>

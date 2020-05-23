@@ -11,8 +11,7 @@
                         <div class="row">
                             <div class="col-md-12 col-12 mb-20">
                                 <label>Email</label>
-                                <input class="mb-0" name="email" type="text"
-                                    placeholder="Nhập email hoặc số điện thoại">
+                                <input class="mb-0" name="email" type="text" placeholder="Nhập email">
                             </div>
                             <div class="col-12 mb-20">
                                 <label>Mật khẩu</label>
@@ -52,7 +51,7 @@
                                 <button class="register-button mt-0">Đăng nhập</button>
                             </div>
                             <div class="col-md-4 mt-10 mb-20 text-left text-md-right">
-                                <a href="#"> Quên mật khẩu?</a>
+                                <a href="/forgotpassword"> Quên mật khẩu ?</a>
                             </div>
                         </div>
                     </div>

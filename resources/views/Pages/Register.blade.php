@@ -2,5 +2,5 @@
 
 @section('content')
 @include('Pages.layout.content.Breadcrumb',['secondPath'=>'Đăng ký'])
-@include('Pages.layout.content.register.RegisterForm')
+@include('Pages.layout.content.user.RegisterForm')
 @endsection

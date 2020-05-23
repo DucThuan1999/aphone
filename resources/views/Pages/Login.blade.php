@@ -2,5 +2,5 @@
 
 @section('content')
 @include('Pages.layout.content.Breadcrumb',['secondPath'=>'Đăng nhập'])
-@include('Pages.layout.content.login.LoginForm')
+@include('Pages.layout.content.user.LoginForm')
 @endsection

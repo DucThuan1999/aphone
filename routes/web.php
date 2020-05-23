@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\LoginPageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,6 +38,13 @@ Route::group(['prefix' => 'login'], function () {
     Route::post('/', 'LoginPageController@postLogin')->name('login.post');
 });
 
+Route::group(['prefix' => 'forgotpassword'], function () {
+    Route::get('/', "ForgotPasswordController@index");
+    Route::post('/', 'ForgotPasswordController@postForgotPassword');
+    Route::get('/change', "ForgotPasswordController@changePassword");
+    Route::post('/change', "ForgotPasswordController@postChangePassword");
+});
+
 Route::get('/logout', 'LoginPageController@logout');
 
 Route::group(['prefix' => 'register'], function () {
@@ -44,6 +53,12 @@ Route::group(['prefix' => 'register'], function () {
 });
 
 Route::get('/verify', 'VerifyPageController@index');
+
+Route::group(['prefix' => 'infouser'], function () {
+    Route::get("/", 'InfoUserController@index');
+    Route::post("/changepassword", 'ChangePasswordController@postChangePassword');
+});
+
 
 Route::group(['prefix' => 'ajax'], function () {
     Route::get('{id}', 'AjaxController@getProductQuickView');

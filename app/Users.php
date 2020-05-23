@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Events\UserRegisteredEvent;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +15,7 @@ class Users extends Authenticatable implements MustVerifyEmail
 
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password', 'firstname', 'lastname', 'address'
     ];
 
 
@@ -29,9 +28,9 @@ class Users extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    protected $dispatchesEvents = [
-        'saved' => UserRegisteredEvent::class,
-    ];
+    // protected $dispatchesEvents = [
+    //     'saved' => UserRegisteredEvent::class,
+    // ];
 
     function bills()
     {
