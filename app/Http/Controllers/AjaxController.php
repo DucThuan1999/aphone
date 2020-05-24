@@ -147,4 +147,20 @@ class AjaxController extends Controller
 
         return $text;
     }
+
+    function suggestSearch(Request $request)
+    {
+        if ($request->get('query')) {
+            $query = $request->get('query');
+            $data = Products::where('name', 'LIKE', '%' . $query . '%')->get();
+            $output = '<ul class="dropdown-menu" style="display: block; padding: 20px">';
+
+            foreach ($data as $row) {
+                $output .= '<li><a href="/products/' . $row->id . '">' . $row->name . '</a></li>';
+            }
+            $output .= '</ul>';
+
+            return $output;
+        }
+    }
 }

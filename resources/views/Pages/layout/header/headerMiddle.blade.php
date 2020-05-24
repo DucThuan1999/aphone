@@ -89,10 +89,16 @@
                         <option value="15">Smartwatch</option>
                         <option value="16">Accessories</option>
                     </select> --}}
-                    <input id="input-search" name="search" type="text" placeholder="Tìm sản phẩm mong muốn ..." />
-                    <button id="button-search" class="li-btn" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
+                    <div class="row">
+                        <input id="input-search" name="search" type="text" placeholder="Tìm sản phẩm mong muốn ..." />
+                        {{ csrf_field() }}
+
+                        <button id="button-search" class="li-btn" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+
+                        <div id='searchList'></div>
+                    </div>
                 </form>
                 <!-- Header Middle Searchbox Area End Here -->
                 <!-- Begin Header Middle Right Area -->
@@ -175,3 +181,33 @@
     </div>
 </div>
 <!-- Header Middle Area End Here -->
+
+@section('script')
+<script>
+    $(document).ready(function(){
+        $('#input-search').keypress(function(){
+            let query = $(this).val();
+            
+            if(query != ''){
+                let _token = $('input[name="_token"]').val(); 
+                
+                $.ajax({
+                    url:"{{route('search.suggetSearch')}}",
+                    method: "POST",
+                    data:{query:query,_token:_token}                    
+                }).success(function(data){
+                    $('#searchList').fadeIn();
+                    $('#searchList').html(data);
+                });
+            }
+        })
+    });
+    
+    $('#input-search').focusout(function(){        
+        $('#searchList').toggleClass('hide-changepassword ');        
+    });
+    $('#input-search').focusin(function(){        
+        $('#searchList').toggleClass('hide-changepassword ');        
+    });
+</script>
+@append

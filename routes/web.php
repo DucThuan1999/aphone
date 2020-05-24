@@ -65,6 +65,7 @@ Route::group(['prefix' => 'ajax'], function () {
     Route::get('suppliers/{id}', 'AjaxController@getSuplliersByCategory');
     Route::get('colors/getcolors', 'AjaxController@getColors');
     Route::get('colors/getcolorsbyproduct/{id}', 'AjaxController@getColorsByProduct');
+    Route::post('suggestsearch', 'AjaxController@suggestSearch')->name('search.suggetSearch');
 });
 
 Route::fallback(function () {
