@@ -135,14 +135,14 @@ class AjaxController extends Controller
 
     function getColorsByProduct($id)
     {
-        $colors = Colors::whereHas('products', function ($query) use ($id) {
+        $colors = Colors::with('products')->whereHas('products', function ($query) use ($id) {
             $query->where('products.id', $id);
         })->get();
 
         $text = '<option selected="selected">Chọn màu</option>';
 
         foreach ($colors as $color) {
-            $text .= '<option value="' . $color->id . '">' . $color->name . '</option>';
+            $text .= '<option value="' . $color->id . '">' . $color->name . ' (' . $color->products->first()->pivot->quantity . ')</option>';
         };
 
         return $text;

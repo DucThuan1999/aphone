@@ -10,6 +10,6 @@ class Colors extends Model
 
     function products()
     {
-        return $this->belongsToMany('App\Products', 'colors_products', 'color_id', 'product_id');
+        return $this->belongsToMany('App\Products', 'colors_products', 'color_id', 'product_id')->withPivot('quantity');
     }
 }
