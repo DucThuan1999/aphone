@@ -32,6 +32,9 @@ Route::group(['prefix' => 'products'], function () {
     // Route::get('/category/{id}', 'ProductsPageController@getProductsByIdCategory');
 });
 
+Route::get('/compare', 'CompareController@index');
+
+Route::get('/contact', 'ContactController@index');
 
 Route::group(['prefix' => 'login'], function () {
     Route::get('/', 'LoginPageController@index')->name('login');
@@ -58,6 +61,10 @@ Route::group(['prefix' => 'infouser'], function () {
     Route::get("/", 'InfoUserController@index');
     Route::post("/changepassword", 'ChangePasswordController@postChangePassword');
 });
+
+Route::get('/wishlist', 'WishListController@index');
+Route::get('/cart', 'CartController@index');
+Route::get('/checkout', 'WishListController@index');
 
 
 Route::group(['prefix' => 'ajax'], function () {

@@ -97,7 +97,7 @@
                             <i class="fa fa-search"></i>
                         </button>
 
-                        <div id='searchList'></div>
+                        <div id='searchList' style="display:none"></div>
                     </div>
                 </form>
                 <!-- Header Middle Searchbox Area End Here -->
@@ -185,7 +185,7 @@
 @section('script')
 <script>
     $(document).ready(function(){
-        $('#input-search').keypress(function(){
+        $('#input-search').on('keyup keypress',function(){
             let query = $(this).val();
             
             if(query != ''){
@@ -203,11 +203,17 @@
         })
     });
     
-    $('#input-search').focusout(function(){        
-        $('#searchList').toggleClass('hide-changepassword ');        
+    $('#input-search').focusout(function(){
+        if($('#searchList').hasClass('show-searchList')){
+            $('#searchList').toggleClass('show-searchList'); 
+        }                    
+        $('#searchList').toggleClass('hide-changepassword');      
     });
-    $('#input-search').focusin(function(){        
-        $('#searchList').toggleClass('hide-changepassword ');        
+    $('#input-search').focusin(function(){         
+        $('#searchList').toggleClass('show-searchList');    
+        if($('#searchList').hasClass('hide-changepassword')){
+            $('#searchList').toggleClass('hide-changepassword');
+        }
     });
 </script>
 @append

@@ -1958,7 +1958,7 @@ textarea:focus {
     transition: all 0.3s ease-in-out;
     color: #242424;
 }
-.hb-menu nav > ul > li:nth-child(n + 4) > a::after {
+.hb-menu nav > ul > li/*:nth-child(n + 4)*/ > a::after {
     content: none;
 }
 .hb-menu nav > ul > li:nth-child(1) > a::after {
@@ -2083,12 +2083,12 @@ textarea:focus {
     transform: translateY(0);
 }
 /*Header Bottom Megamenu*/
-.hb-menu nav > ul > li:nth-child(1) {
+.hb-menu nav > ul > li {
     margin-right: -20px;
 }
-.hb-menu nav > ul > li:nth-child(4) {
+/* .hb-menu nav > ul > li:nth-child(4) {
     margin-right: -20px;
-}
+} */
 .megamenu-static-holder {
     position: static !important;
 }
@@ -4331,7 +4331,7 @@ thead {
     padding: 10px 30px;
     border-bottom: 1px solid #ebebeb;
     font-weight: 700;
-    font-family: "Montserrat", sans-serif;
+    /* font-family: "Montserrat", sans-serif; */
 }
 .cart-page-total ul > li > span {
     float: right;
@@ -4765,7 +4765,7 @@ thead {
     min-width: 250px;
 }
 .compare-pdoduct-image {
-    max-width: 200px;
+    max-width: 300px;
     display: inline-block;
     padding: 20px 0;
 }
@@ -6047,6 +6047,10 @@ input[type="radio"][name="color"]:checked:after {
 
 .hide-changepassword {
     display: none;
+}
+
+.show-searchList {
+    display: block;
 }
 
 #input-search {

@@ -7,12 +7,12 @@
                 <div class="hb-menu hb-menu-2">
                     <nav>
                         <ul>
-                            <li class="dropdown-holder">
+                            <li>
                                 <a href="/">Trang chủ</a>
                             </li>
-                            <li class="megamenu-holder">
+                            <li>
                                 <a href="/products">Sản phẩm</a>
-                                <ul class="megamenu hb-megamenu">
+                                {{-- <ul class="megamenu hb-megamenu">
                                     <li>
                                         <a href="shop-left-sidebar.html">Shop Page Layout</a>
                                         <ul>
@@ -117,11 +117,14 @@
                                             </li>
                                         </ul>
                                     </li>
-                                </ul>
+                                </ul>  --}}
                             </li>
-                            <li class="dropdown-holder">
-                                <a href="blog-left-sidebar.html">Bài viết</a>
-                                <ul class="hb-dropdown">
+                            <li>
+                                <a href="/compare">So sánh</a>
+                            </li>
+                            <li>
+                                <a href="/blogs">Bài viết</a>
+                                {{-- <ul class="hb-dropdown">
                                     <li class="sub-dropdown-holder">
                                         <a href="blog-left-sidebar.html">Blog Grid View</a>
                                         <ul class="hb-dropdown hb-sub-dropdown">
@@ -191,19 +194,15 @@
                                             </li>
                                         </ul>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </li>
                             <li>
-                                <a href="about-us.html">Cửa hàng</a>
-                            </li>
-                            <li>
-                                <a href="contact.html">Liên hệ</a>
+                                <a href="/contact">Liên hệ</a>
                             </li>
                             <!-- Begin Header Bottom Menu Information Area -->
-                            {{-- <li class="hb-info f-right p-0 d-sm-none d-lg-block">
-                                <span>6688 London, Greater London
-                                    BAS 23JK, UK</span>
-                            </li> --}}
+                            <li class="hb-info f-right p-0 d-sm-none d-lg-block">
+                                <span>273 An Dương Vương, Phường 3, Quận 5, Hồ Chí Minh</span>
+                            </li>
                             <!-- Header Bottom Menu Information Area End Here -->
                         </ul>
                     </nav>
