@@ -64,7 +64,7 @@ Route::group(['prefix' => 'infouser'], function () {
 
 Route::get('/wishlist', 'WishListController@index');
 Route::get('/cart', 'CartController@index');
-Route::get('/checkout', 'WishListController@index');
+Route::get('/checkout', 'CheckoutController@index');
 
 
 Route::group(['prefix' => 'ajax'], function () {

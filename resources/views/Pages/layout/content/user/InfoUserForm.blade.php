@@ -1,43 +1,20 @@
 <br>
-<div class="container">
+<div class="container mb-30">
     <div class="row">
-        <div class="col-lg-3">
-            <div class="profile-card-4 z-depth-3">
-                <div class="card">
-                    <div class="card-body">
-                        <ul class="list-group shadow-none">
-                            <li class="list-group-item">
-                                <div class="list-icon">
-                                    <i class="fa fa-phone-square"></i>
-                                </div>
-                                <div class="list-details">
-                                    <span>9910XXXXXX</span>
-                                    <small>Mobile Number</small>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="list-icon">
-                                    <i class="fa fa-envelope"></i>
-                                </div>
-                                <div class="list-details">
-                                    <span>info@example.com</span>
-                                    <small>Email Address</small>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="list-icon">
-                                    <i class="fa fa-globe"></i>
-                                </div>
-                                <div class="list-details">
-                                    <span>www.example.com</span>
-                                    <small>Website Address</small>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+        <!-- Begin Li's Blog Sidebar Area -->
+        <div class="col-lg-3" style="border: 1px solid rgba(0,0,0,.125)">
+            <div class="li-blog-sidebar-wrapper">
+                <div class="li-blog-sidebar pt-25">
+                    <h4 class="li-blog-sidebar-title">Tài khoản của {{$user->firstname}} {{$user->lastname}}</h4>
+                    <ul class="li-blog-archive">
+                        <li><a href="#">Thông tin tài khoản</a></li>
+                        <li><a href="#">Giỏ hàng của tôi</a></li>
+                        <li><a href="#">Sản phẩm yêu thích</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
+        <!-- Li's Blog Sidebar Area End Here -->
         <div class="col-lg-9">
             <div class="card z-depth-3">
                 <div class="card-body">

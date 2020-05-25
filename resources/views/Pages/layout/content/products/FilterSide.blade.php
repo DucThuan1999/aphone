@@ -46,7 +46,8 @@
                     <ul>
                         @foreach($suppliers as $supplier)
                         <li><input type="radio" <?php echo $querySuppliers == $supplier->id ? "checked" : "" ?>
-                                value="{{$supplier->id}}" name="suppliers"><a href="#">{{$supplier->name}}
+                                value="{{$supplier->id}}" name="suppliers"><a
+                                href="/products?suppliers={{$supplier->id}}">{{$supplier->name}}
                                 ({{count($supplier->product)}})</a></li>
                         @endforeach
 

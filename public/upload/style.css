@@ -1877,7 +1877,7 @@ textarea:focus {
 }
 .li-button {
     display: inline-block;
-    font-family: "Poppins", sans-serif;
+    /* font-family: "Poppins", sans-serif; */
     font-weight: 500;
     font-size: 14px;
     text-transform: uppercase;
@@ -4404,7 +4404,7 @@ thead {
     text-transform: uppercase;
     position: relative;
     margin-bottom: 52px;
-    font-family: Poppins;
+    /* font-family: Poppins; */
 }
 .li-blog-sidebar .li-blog-sidebar-title::before {
     width: 55px;
@@ -6057,6 +6057,10 @@ input[type="radio"][name="color"]:checked:after {
     width: 600px;
 }
 
+.a-custom {
+    color: #ffffff;
+    font-size: 12px;
+}
 /*----------------------------------------------------------------------------------------------------*/
 /*------------------------------------------> The End <-----------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------*/

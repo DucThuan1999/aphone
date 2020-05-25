@@ -15,30 +15,45 @@
             <div class="col-lg-9 col-md-8">
                 <div class="header-top-right">
                     <ul class="ht-menu">
-                        <!-- Begin Setting Area -->
+                        @if(Auth::check())
+                        <li>
+                            <div><a class="a-custom" href="/infouser">Tài khoản</a></div>
+                        </li>
+                        <li>
+                            <div><a class="a-custom" href="/logout">Đăng xuất</a></div>
+                        </li>
+                        @else
+                        <li>
+                            <div><a class="a-custom" href="/register">Đăng ký</a></div>
+                        </li>
+                        <li>
+                            <div><a class="a-custom" href="/login">Đăng nhập</a></div>
+                        </li>
+                        @endif
+                        {{-- <!-- Begin Setting Area -->
                         <li>
                             <div class="ht-setting-trigger"><span>Tài khoản</span></div>
                             <div class="setting ht-setting">
                                 @if(Auth::check())
-                                <ul class="ht-setting-list">
+                                <ul>
                                     <li><a href="/infouser">{{Auth::user()->firstname}}
-                                            {{Auth::user()->lastname}}</a></li>
-                                    <li><a href="/logout">Đăng xuất</a></li>
-                                </ul>
-                                @else
-                                <ul class="ht-setting-list">
-                                    <li><a href="/register">Đăng ký</a></li>
-                                    <li><a href="/login">Đăng nhập</a></li>
-                                </ul>
-                                @endif
-                            </div>
-                        </li>
-                        <!-- Setting Area End Here -->
+                        {{Auth::user()->lastname}}</a></li>
+                        <li><a href="/logout">Đăng xuất</a></li>
                     </ul>
+                    @else
+                    <ul class="ht-setting-list">
+                        <li><a href="/register">Đăng ký</a></li>
+                        <li><a href="/login">Đăng nhập</a></li>
+                    </ul>
+                    @endif
                 </div>
+                </li>
+                <!-- Setting Area End Here --> --}}
+                </ul>
             </div>
-            <!-- Header Top Right Area End Here -->
         </div>
+        <!-- Header Top Right Area End Here -->
     </div>
+</div>
 </div>
 <!-- Header Top Area End Here -->

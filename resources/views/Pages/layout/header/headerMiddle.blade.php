@@ -106,7 +106,7 @@
                     <ul class="hm-menu">
                         <!-- Begin Header Middle Wishlist Area -->
                         <li class="hm-wishlist">
-                            <a href="wishlist.html">
+                            <a href="/wishlist">
                                 <span class="cart-item-count wishlist-item-count">0</span>
                                 <i class="fa fa-heart-o"></i>
                             </a>
@@ -161,11 +161,10 @@
                                     <span>80.000 đ</span>
                                 </p>
                                 <div class="minicart-button">
-                                    <a href="checkout.html"
-                                        class="li-button li-button-dark li-button-fullwidth li-button-sm">
+                                    <a href="/cart" class="li-button li-button-dark li-button-fullwidth li-button-sm">
                                         <span>Xem giỏ hàng</span>
                                     </a>
-                                    <a href="checkout.html" class="li-button li-button-fullwidth li-button-sm">
+                                    <a href="/checkout" class="li-button li-button-fullwidth li-button-sm">
                                         <span>Thanh toán</span>
                                     </a>
                                 </div>

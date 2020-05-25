@@ -15,7 +15,7 @@
                             </div>
                             <div class="col-12 mb-20">
                                 <label>Mật khẩu</label>
-                                <input class="mb-0" name="password" type="password"
+                                <input class="mb-0" maxlength="32" name="password" type="password"
                                     placeholder="Mật khẩu từ 6 đến 32 ký tự">
                             </div>
                             {{-- <div class="col-md-8">
