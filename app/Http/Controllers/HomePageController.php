@@ -7,6 +7,7 @@ use App\Products;
 use App\Categories;
 use App\Suppliers;
 use App\Images;
+use App\WishList;
 use Illuminate\Support\Facades\Auth;
 
 class HomePageController extends Controller
@@ -33,6 +34,8 @@ class HomePageController extends Controller
             if (Auth::user()->email_verified_at === null) {
                 return view('Pages.VerifyAlert');
             }
+            $wishlist = WishList::where('user_id', Auth::user()->id)->get();
+            view()->share('wishlist', $wishlist);
         }
         return view('Pages.Home');
     }

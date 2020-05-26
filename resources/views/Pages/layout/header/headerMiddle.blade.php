@@ -107,7 +107,12 @@
                         <!-- Begin Header Middle Wishlist Area -->
                         <li class="hm-wishlist">
                             <a href="/wishlist">
-                                <span class="cart-item-count wishlist-item-count">0</span>
+                                <span class="cart-item-count wishlist-item-count">
+                                    @empty($wishlist)
+                                    @else
+                                    {{count($wishlist)}}
+                                    @endempty
+                                </span>
                                 <i class="fa fa-heart-o"></i>
                             </a>
                         </li>

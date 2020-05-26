@@ -17,7 +17,8 @@
                     <ul class="ht-menu">
                         @if(Auth::check())
                         <li>
-                            <div><a class="a-custom" href="/infouser">Tài khoản</a></div>
+                            <div><a class="a-custom" href="/infouser">{{Auth::user()->firstname}}
+                                    {{Auth::user()->lastname}}</a></div>
                         </li>
                         <li>
                             <div><a class="a-custom" href="/logout">Đăng xuất</a></div>

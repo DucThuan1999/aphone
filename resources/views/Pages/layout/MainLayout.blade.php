@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <base href="{{asset('')}}">
     <title>
         Aphone
@@ -60,6 +61,7 @@
 
     </div>
     <div class="modal fade modal-wrapper" id="exampleModalCenter"></div>
+    <div id="snackbar">Some text some message..</div>
     <!-- Body Wrapper End Here -->
     <!-- jQuery-V1.12.4 -->
     <script src="upload/js/vendor/jquery-1.12.4.min.js"></script>
@@ -103,6 +105,14 @@
     <script src="upload/js/scrollUp.min.js"></script>
     <!-- Main/Activator js -->
     <script src="upload/js/main.js"></script>
+
+    <script>
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    </script>
 
     @yield('script')
 </body>

@@ -3,6 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                @if(!empty($wishlist))
                 <form action="#">
                     <div class="table-content table-responsive">
                         <table class="table">
@@ -12,44 +13,54 @@
                                     <th class="li-product-thumbnail">Ảnh</th>
                                     <th class="cart-product-name">Tên sản phẩm</th>
                                     <th class="li-product-price">Giá</th>
-                                    <th class="li-product-stock-status">Tình trạng</th>
                                     <th class="li-product-add-cart">Thêm vào giỏ</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img
-                                                src="upload/images/wishlist-thumb/1.jpg" alt=""></a></td>
-                                    <td class="li-product-name"><a href="#">Giro Civilia</a></td>
-                                    <td class="li-product-price"><span class="amount">$23.39</span></td>
-                                    <td class="li-product-stock-status"><span class="in-stock">in stock</span></td>
-                                    <td class="li-product-add-cart"><a href="#">add to cart</a></td>
+                                @foreach ($wishlist as $wishitem)
+                                <tr id="products_row_{{$wishitem->products->id}}">
+                                    <td class="li-product-remove"><a
+                                            onclick="handleRemoveWishlist({{$wishitem->products->id}})"
+                                            href="javascript:void(0);"><i class="fa fa-times"></i></a></td>
+                                    <td class="li-product-thumbnail"><a href="#"><img width="120px"
+                                                src="{{$wishitem->products->image}}" alt=""></a></td>
+                                    <td class="li-product-name"><a
+                                            href="/products/{{$wishitem->products->id}}">{{$wishitem->products->name}}</a>
+                                    </td>
+                                    <td class="li-product-price"><span
+                                            class="amount">{{$wishitem->products->price}}</span></td>
+                                    <td class="li-product-add-cart"><a href="#">Thêm vào giỏ</a></td>
                                 </tr>
-                                <tr>
-                                    <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img
-                                                src="upload/images/wishlist-thumb/2.jpg" alt=""></a></td>
-                                    <td class="li-product-name"><a href="#">Pro Bike Shoes</a></td>
-                                    <td class="li-product-price"><span class="amount">$30.50</span></td>
-                                    <td class="li-product-stock-status"><span class="in-stock">in stock</span></td>
-                                    <td class="li-product-add-cart"><a href="#">add to cart</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img
-                                                sr="/upload/images/wishlist-thumb/3.jpg" alt=""></a></td>
-                                    <td class="li-product-name"><a href="#">Nero Urban Shoes</a></td>
-                                    <td class="li-product-price"><span class="amount">$40.19</span></td>
-                                    <td class="li-product-stock-status"><span class="out-stock">out stock</span></td>
-                                    <td class="li-product-add-cart"><a href="#">add to cart</a></td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </form>
+                @else
+                <div class="error-wrapper text-center ptb-50 pt-xs-20">
+                    <div class="error-text">
+                        <p>Danh sách yêu thích trống.</p>
+                    </div>
+                    <div class="error-button">
+                        <a href="/">Tiếp tục mua sắm</a>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
 </div>
 <!--Wishlist Area End-->
+
+@section('script')
+<script>
+    function handleRemoveWishlist(id){        
+        $(`#products_row_${id}`).hide();        
+        $.ajax({
+            method: "POST",
+            url: 'wishlist/remove',
+            data: {id: id}
+        });
+    }
+</script>
+@endsection

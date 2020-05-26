@@ -59,13 +59,13 @@
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
                                             <li class="add-cart active"><a>Thêm vào giỏ</a></li>
-                                            <li><a class="links-details" id="quickview"><i
+                                            {{-- <li><a onclick="addWishList({{$product->id}}) "
+                                            class="links-details"><i class="fa fa-heart-o"></i></a></li> --}}
+                                            <li><a onclick="addWishList({{$product->id}}) " class="links-details"><i
                                                         class="fa fa-heart-o"></i></a></li>
-                                            <div>
-                                                <li><a onclick="quickviewModal({{$product->id}}) " data-toggle="modal"
-                                                        class="quick-view"><i class="fa fa-eye"></i></a>
-                                                </li>
-                                            </div>
+                                            <li><a onclick="quickviewModal({{$product->id}})" data-toggle="modal"
+                                                    class="quick-view"><i class="fa fa-eye"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -89,6 +89,15 @@
         }).then(function(){            
             $('#exampleModalCenter').modal('show');
         });
+    }
+
+    function addWishList(id){        
+        $.get("/wishlist/add/"+id,function(){
+            var x = document.getElementById("snackbar");
+            x.innerHTML = "Đã thêm sản phẩm vào danh sách yêu thích !!!";
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        });                                           
     }
     
 </script>

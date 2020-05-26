@@ -62,6 +62,12 @@ Route::group(['prefix' => 'infouser'], function () {
     Route::post("/changepassword", 'ChangePasswordController@postChangePassword');
 });
 
+Route::group(['prefix' => 'wishlist'], function () {
+    Route::get('/', 'WishListController@index');
+    Route::get('/add/{id}', 'WishListController@addWishList');
+    Route::post('/remove', 'WishListController@removeWishList');
+});
+
 Route::get('/wishlist', 'WishListController@index');
 Route::get('/cart', 'CartController@index');
 Route::get('/checkout', 'CheckoutController@index');

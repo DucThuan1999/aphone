@@ -36,4 +36,9 @@ class Users extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany('App\Bills', 'user_id', 'id');
     }
+
+    function wishlist()
+    {
+        return $this->hasMany('App\WishList', 'user_id', 'id');
+    }
 }

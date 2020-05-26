@@ -7,6 +7,7 @@ use App\Products;
 use App\Categories;
 use App\Suppliers;
 use App\Colors;
+use App\WishList;
 use Illuminate\Support\Facades\Auth;
 
 class ProductsPageController extends Controller
@@ -18,12 +19,13 @@ class ProductsPageController extends Controller
         $suppliers = Suppliers::all();
         $colors = Colors::all();
 
-        $randomProductsArea = Products::all()->random(4);
+        $randomProductsArea = Products::all()->random(6);
 
         view()->share('products', $products);
         view()->share('categories', $categories);
         view()->share('suppliers', $suppliers);
         view()->share('colors', $colors);
+
 
         view()->share('randomProductsArea', $randomProductsArea);
     }
@@ -34,6 +36,8 @@ class ProductsPageController extends Controller
             if (Auth::user()->email_verified_at === null) {
                 return view('Pages.VerifyAlert');
             }
+            $wishlist = WishList::where('user_id', Auth::user()->id)->get();
+            view()->share('wishlist', $wishlist);
         }
         $products = new Products();
 
