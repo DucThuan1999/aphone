@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                @if(!empty($wishlist))
+                @if(count($wishlist) != 0)
                 <form action="#">
                     <div class="table-content table-responsive">
                         <table class="table">
@@ -60,6 +60,9 @@
             method: "POST",
             url: 'wishlist/remove',
             data: {id: id}
+        }).done(function(){
+            let count_wishlist = document.getElementById('count_wishlist');
+            count_wishlist.innerText = parseInt(count_wishlist.textContent) - 1;
         });
     }
 </script>
