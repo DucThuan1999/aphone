@@ -91,8 +91,12 @@
         });
     }
 
-    function addWishList(id){        
-        $.get("/wishlist/add/"+id,function(){
+    function addWishList(id){                     
+        $.ajax({
+            method: "POST",
+            url: '/wishlist/add',
+            data: {id: id}
+        }).done(function(data){
             let snackbar = document.getElementById("snackbar");
             snackbar.innerHTML = "Đã thêm sản phẩm vào danh sách yêu thích !!!";
             snackbar.className = "show";
@@ -100,9 +104,9 @@
 
             let count_wishlist = document.getElementById('count_wishlist');
             count_wishlist.innerText = parseInt(count_wishlist.textContent) + 1;
-        });                                           
+            
+        });                                                     
     }
-    
 </script>
 @endsection
 {{-- @include('Pages.layout.content.QuickView'); --}}

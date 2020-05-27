@@ -64,7 +64,7 @@ Route::group(['prefix' => 'infouser'], function () {
 
 Route::group(['prefix' => 'wishlist'], function () {
     Route::get('/', 'WishListController@index');
-    Route::get('/add/{id}', 'WishListController@addWishList');
+    Route::post('/add', 'WishListController@addWishList');
     Route::post('/remove', 'WishListController@removeWishList');
 });
 
