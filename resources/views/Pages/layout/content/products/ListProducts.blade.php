@@ -56,7 +56,8 @@
                                                         <li><a onclick="quickviewModal({{$product->id}})"
                                                                 title="quick view" class="quick-view-btn"><i
                                                                     class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i
+                                                        <li><a class="links-details"
+                                                                onclick="addWishList({{$product->id}})"><i
                                                                     class="fa fa-heart-o"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -149,6 +150,18 @@
         }).then(function(){            
             $('#exampleModalCenter').modal('show');
         });
+    }
+
+    function addWishList(id){        
+        $.get("/wishlist/add/"+id,function(){
+            let snackbar = document.getElementById("snackbar");
+            snackbar.innerHTML = "Đã thêm sản phẩm vào danh sách yêu thích !!!";
+            snackbar.className = "show";
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+
+            let count_wishlist = document.getElementById('count_wishlist');
+            count_wishlist.innerText = parseInt(count_wishlist.textContent) + 1;
+        });                                           
     }
     
 </script>

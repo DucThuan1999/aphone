@@ -61,7 +61,7 @@
                                             <li class="add-cart active"><a>Thêm vào giỏ</a></li>
                                             {{-- <li><a onclick="addWishList({{$product->id}}) "
                                             class="links-details"><i class="fa fa-heart-o"></i></a></li> --}}
-                                            <li><a onclick="addWishList({{$product->id}}) " class="links-details"><i
+                                            <li><a onclick="addWishList({{$product->id}})" class="links-details"><i
                                                         class="fa fa-heart-o"></i></a></li>
                                             <li><a onclick="quickviewModal({{$product->id}})" data-toggle="modal"
                                                     class="quick-view"><i class="fa fa-eye"></i></a>
@@ -93,10 +93,13 @@
 
     function addWishList(id){        
         $.get("/wishlist/add/"+id,function(){
-            var x = document.getElementById("snackbar");
-            x.innerHTML = "Đã thêm sản phẩm vào danh sách yêu thích !!!";
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            let snackbar = document.getElementById("snackbar");
+            snackbar.innerHTML = "Đã thêm sản phẩm vào danh sách yêu thích !!!";
+            snackbar.className = "show";
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+
+            let count_wishlist = document.getElementById('count_wishlist');
+            count_wishlist.innerText = parseInt(count_wishlist.textContent) + 1;
         });                                           
     }
     
