@@ -27,7 +27,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($cart as $itemCart)
-                                <tr id="products_row_{{$itemCart->rowId}}">
+                                <tr class="products_row_{{$itemCart->rowId}}">
                                     <td class="li-product-remove"><a onclick="removeCart('{{$itemCart->rowId}}')"
                                             href="javascript:void(0)"><i class="fa fa-times"></i></a></td>
                                     <td class="li-product-thumbnail"><a href="/products/{{$itemCart->id}}"><img

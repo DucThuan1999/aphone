@@ -6096,13 +6096,6 @@ input[type="radio"][name="color"]:checked:after {
     font-size: 12px;
 }
 
-/* input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-} */
-
 #snackbar {
     visibility: hidden;
     min-width: 250px;
@@ -6157,7 +6150,6 @@ input::-webkit-inner-spin-button {
         opacity: 0;
     }
 }
-
 @keyframes /*----------------------------------------------------------------------------------------------------*/
 /*------------------------------------------> The End <-----------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------*/;

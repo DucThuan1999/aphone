@@ -116,11 +116,11 @@
         function showSnackbar(message){
             let snackbar = document.getElementById("snackbar");
             snackbar.innerHTML = message;
-            snackbar.className = "show";
+            snackbar.className = "show";            
             setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
         }
     </script>
-
+    <script src="index.js"></script>
     @yield('script')
 </body>
 

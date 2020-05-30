@@ -65,7 +65,7 @@ class CartController extends Controller
         }
 
         if ($request->inCartPage == true)
-            return $this->getTotalPriceCart();
+            return [$this->getTotalPriceCart(), Cart::total(0)];
     }
 
     function destroyCart(Request $request)

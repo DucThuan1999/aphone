@@ -7,12 +7,15 @@ function removeCart(rowId) {
             inCartPage: true,
         },
     }).done(function (data) {
-        $(`#products_row_${rowId}`).hide();
+        $(`.products_row_${rowId}`).hide();
         showSnackbar("Đã xoá sản phẩm trong giỏ hàng !!!");
 
         let count_cart = document.getElementById("count_cart");
         count_cart.innerText = parseInt(count_cart.textContent) - 1;
-        if (data) $("#showTotalPrice").html(data);
+        if (data) {
+            $("#showTotalPrice").html(data[0]);
+            $("#showTotalPriceMiniCart").html(data[1] + " đ");
+        }
     });
 }
 

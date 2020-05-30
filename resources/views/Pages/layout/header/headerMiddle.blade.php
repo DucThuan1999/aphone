@@ -24,9 +24,8 @@
                 <!-- Begin Header Middle Searchbox Area -->
                 <form action="{{route('products.index')}}" class="hm-searchbox">
                     <div class="row">
+                        @csrf
                         <input id="input-search" name="search" type="text" placeholder="Tìm sản phẩm mong muốn ..." />
-                        {{ csrf_field() }}
-
                         <button id="button-search" class="li-btn" type="submit">
                             <i class="fa fa-search"></i>
                         </button>
@@ -68,7 +67,7 @@
                             <div class="minicart">
                                 <ul class="minicart-product-list">
                                     @foreach ($cart as $itemCart)
-                                    <li>
+                                    <li class="products_row_{{$itemCart->rowId}}">
                                         <a href="single-product.html" class="minicart-product-image">
                                             <img src="{{$itemCart->options->img}}" alt="cart products" />
                                         </a>
@@ -78,7 +77,7 @@
                                             </h6>
                                             <span>{{number_format($itemCart->price)}} đ x {{$itemCart->qty}}</span>
                                         </div>
-                                        <button class="close">
+                                        <button onclick="removeCart('{{$itemCart->rowId}}')" class="close">
                                             <i class="fa fa-close"></i>
                                         </button>
                                     </li>
@@ -86,7 +85,7 @@
                                 </ul>
                                 <p class="minicart-total">
                                     TỔNG CỘNG:
-                                    <span>{{Cart::total(0)}} đ</span>
+                                    <span id="showTotalPriceMiniCart">{{Cart::total(0)}} đ</span>
                                 </p>
                                 <div class="minicart-button">
                                     <a href="/cart" class="li-button li-button-dark li-button-fullwidth li-button-sm">
