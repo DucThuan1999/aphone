@@ -34,32 +34,3 @@
     <!-- product-select-box end -->
 </div>
 <!-- shop-top-bar end -->
-
-@section('script')
-@parent
-<script>
-    // $(document).ready(function(){   
-    //     let searchParams = new URLSearchParams(window.location.search);     
-    //     if(searchParams.has('sort')){
-    //         let value = searchParams.get('sort');            
-    //         $('#select-filter').val(value);
-    //     }   
-    // });
-
-    $('#select-filter').change(function(){
-        let searchParams = new URLSearchParams(window.location.search);
-        let url = window.location.href;
-        if(!searchParams.has('sort')){            
-            if(url.includes('?'))  url = url + '&sort='+$(this).val();
-            else    url = url + '?sort='+$(this).val();            
-        }else {            
-            let newValue = $('#select-filter option:selected').val();    
-            let oldValue = searchParams.get('sort');        
-            url = url.replace(oldValue,newValue);            
-            // chưa + params
-        }
-        window.location.replace(url);
-    });
-
-</script>
-@endsection

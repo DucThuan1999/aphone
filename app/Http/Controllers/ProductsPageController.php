@@ -8,6 +8,7 @@ use App\Categories;
 use App\Suppliers;
 use App\Colors;
 use App\WishList;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 
 class ProductsPageController extends Controller
@@ -25,7 +26,6 @@ class ProductsPageController extends Controller
         view()->share('categories', $categories);
         view()->share('suppliers', $suppliers);
         view()->share('colors', $colors);
-
 
         view()->share('randomProductsArea', $randomProductsArea);
     }

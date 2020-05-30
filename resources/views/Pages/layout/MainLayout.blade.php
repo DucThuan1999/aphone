@@ -105,15 +105,22 @@
     <script src="upload/js/scrollUp.min.js"></script>
     <!-- Main/Activator js -->
     <script src="upload/js/main.js"></script>
-
+    <script src="index.js"></script>
     <script>
         $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+         
+        function showSnackbar(message){
+            let snackbar = document.getElementById("snackbar");
+            snackbar.innerHTML = message;
+            snackbar.className = "show";            
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
         }
-    });
     </script>
-
+    <script src="index.js"></script>
     @yield('script')
 </body>
 

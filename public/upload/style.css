@@ -1378,6 +1378,35 @@ textarea:focus {
     top: 0;
     right: 0;
 }
+
+.cart-plus-minus .dec.qtybutton-custom,
+.cart-plus-minus .inc.qtybutton-custom {
+    border-bottom: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    border-top: 1px solid #e1e1e1;
+    color: #333333;
+    cursor: pointer;
+    height: 23px;
+    line-height: 20px;
+    position: absolute;
+    text-align: center;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+    width: 28px;
+}
+.cart-plus-minus .dec.qtybutton-custom:hover,
+.cart-plus-minus .inc.qtybutton-custom:hover {
+    background: #ddd;
+}
+.cart-plus-minus .dec.qtybutton-custom {
+    bottom: 0;
+    right: 0;
+}
+.cart-plus-minus .inc.qtybutton-custom {
+    border-bottom: none;
+    top: 0;
+    right: 0;
+}
 .product-details-thumbs .slick-arrow,
 .tab-style-right .slick-arrow,
 .tab-style-left .slick-arrow {
@@ -3783,6 +3812,11 @@ li.right-menu .cat-mega-menu-2 > li {
         padding: 7px 7px;
     }
 }
+@media only screen and (min-width: 600px) {
+    .table-responsive {
+        overflow: visible;
+    }
+}
 .table-content table td.li-product-add-cart a:hover {
     background: #fed700 none repeat scroll 0 0;
     color: #fff;
@@ -6116,7 +6150,6 @@ input[type="radio"][name="color"]:checked:after {
         opacity: 0;
     }
 }
-
 @keyframes /*----------------------------------------------------------------------------------------------------*/
 /*------------------------------------------> The End <-----------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------*/;

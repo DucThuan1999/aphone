@@ -58,7 +58,8 @@
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
-                                            <li class="add-cart active"><a>Thêm vào giỏ</a></li>
+                                            <li class="add-cart active"><a onclick="addCart({{$product->id}})">Thêm vào
+                                                    giỏ</a></li>
                                             {{-- <li><a onclick="addWishList({{$product->id}}) "
                                             class="links-details"><i class="fa fa-heart-o"></i></a></li> --}}
                                             <li><a onclick="addWishList({{$product->id}})" class="links-details"><i
@@ -81,28 +82,5 @@
     </div>
 </section>
 <!-- Li's Laptop Product Area End Here -->
-@section('script')
-<script>
-    function quickviewModal(id){
-        $.get("/ajax/"+id,function(data){                   
-            $('#exampleModalCenter').html(data);            
-        }).then(function(){            
-            $('#exampleModalCenter').modal('show');
-        });
-    }
 
-    function addWishList(id){        
-        $.get("/wishlist/add/"+id,function(){
-            let snackbar = document.getElementById("snackbar");
-            snackbar.innerHTML = "Đã thêm sản phẩm vào danh sách yêu thích !!!";
-            snackbar.className = "show";
-            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
-
-            let count_wishlist = document.getElementById('count_wishlist');
-            count_wishlist.innerText = parseInt(count_wishlist.textContent) + 1;
-        });                                           
-    }
-    
-</script>
-@endsection
 {{-- @include('Pages.layout.content.QuickView'); --}}

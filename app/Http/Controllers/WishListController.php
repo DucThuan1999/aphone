@@ -21,16 +21,16 @@ class WishListController extends Controller
         // return $wishlist;
     }
 
-    function addWishList($id)
+    function addWishList(Request $request)
     {
         $wishlist = new WishList();
         if (Auth::check()) {
             $wishlist->user_id = Auth::user()->id;
-            $wishlist->product_id = $id;
+            $wishlist->product_id = $request->id;
             $wishlist->save();
             return $wishlist;
-        }
-        return redirect('/login');
+        } else
+            return redirect('/login')->with('loginAlert', 'Vui lòng đăng nhập để thêm sản phẩm yêu thích !!!');
     }
 
     function removeWishList(Request $request)
