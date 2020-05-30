@@ -142,10 +142,3 @@
         </div>
     </div>
 </div>
-@section('script')
-<script>
-    $('#changepassword-checkbox').change(function(){
-        $('.changepassword-input').toggleClass('hide-changepassword');
-    });
-</script>
-@endsection

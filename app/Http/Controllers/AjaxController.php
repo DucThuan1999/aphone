@@ -148,6 +148,19 @@ class AjaxController extends Controller
         return $text;
     }
 
+    function getQtyByColors(Request $request)
+    {
+        $idProduct = $request->id;
+        $idColor = $request->color;
+        $color = Colors::where('id', $idColor)->with('products')->whereHas('products', function ($query) use ($idProduct) {
+            $query->where('products.id', $idProduct);
+        })->first();
+
+        $qty = $color->products->first()->pivot->quantity;
+
+        return ['color' => $color, 'qty' => $qty];
+    }
+
     function suggestSearch(Request $request)
     {
         if ($request->get('query')) {

@@ -105,7 +105,7 @@
     <script src="upload/js/scrollUp.min.js"></script>
     <!-- Main/Activator js -->
     <script src="upload/js/main.js"></script>
-
+    <script src="index.js"></script>
     <script>
         $.ajaxSetup({
             headers: {

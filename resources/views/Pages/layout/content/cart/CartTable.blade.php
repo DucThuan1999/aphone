@@ -84,8 +84,8 @@
                             <div class="cart-page-total">
                                 <h2>Tổng cộng giỏ hàng</h2>
                                 <ul>
-                                    <li>Tổng tiền <span>{{Cart::priceTotal()}}</span></li>
-                                    <li>Thành tiền <span>{{Cart::total()}}</span></li>
+                                    <li>Tổng tiền <span>{{Cart::priceTotal(0)}}</span></li>
+                                    <li>Thành tiền <span>{{Cart::total(0)}}</span></li>
                                 </ul>
                                 <a href="/checkout">Tiến hành thanh toán</a>
                             </div>
@@ -107,51 +107,3 @@
     </div>
 </div>
 <!--Shopping Cart Area End-->
-@section('script')
-<script>
-    function removeCart(rowId){                
-        $.ajax({
-            method: "POST",
-            url: '/cart/remove',
-            data: {
-                rowId: rowId,                
-                inCartPage: true
-            }
-        }).done(function(data){            
-            $(`#products_row_${rowId}`).hide();   
-            showSnackbar("Đã xoá sản phẩm trong giỏ hàng !!!");
-
-            let count_cart = document.getElementById('count_cart');
-            count_cart.innerText = parseInt(count_cart.textContent) - 1; 
-            if(data) $('#showTotalPrice').html(data);                                   
-        });
-    }
-    
-    function updateQtyItemCart(rowId,qty){    
-        $.ajax({
-            method: "POST",
-            url: '/cart/update',
-            data: {
-                rowId,
-                qty,
-                inCartPage: true
-            }
-        }).done(function(data){
-            showSnackbar("Đã cập nhật sản phẩm trong giỏ hàng !!!");            
-            if(data) {
-                $('#showTotalPrice').html(data.totalPrice); 
-                $(`#subtotal_${rowId}`).html(data.subtotal+' đ');
-           }   
-            // console.log(data);        
-        });
-    }
-
-    function getColorsProduct(id,rowId){        
-        $.get("/ajax/colors/getcolorsbyproduct/" + id, function (data) {
-            $(`#select_colors_${rowId}`).html(data);
-            $(".nice-select").niceSelect();
-        });
-    
-    };
-</script>
-@endsection

@@ -82,48 +82,5 @@
     </div>
 </section>
 <!-- Li's Laptop Product Area End Here -->
-@section('script')
-<script>
-    function quickviewModal(id){
-        $.get("/ajax/"+id,function(data){                   
-            $('#exampleModalCenter').html(data);            
-        }).then(function(){            
-            $('#exampleModalCenter').modal('show');
-        });
-    }
 
-    function addWishList(id){                     
-        $.ajax({
-            method: "POST",
-            url: '/wishlist/add',
-            data: {id: id}
-        }).done(function(){
-            showSnackbar("Đã thêm sản phẩm vào danh sách yêu thích !!!");
-            let count_wishlist = document.getElementById('count_wishlist');
-            count_wishlist.innerText = parseInt(count_wishlist.textContent) + 1;
-            
-        });                                                     
-    }
-
-    function addCart(id){ 
-        let color = $('#select-colors option:selected').val() ? $('#select-colors option:selected').val() : null;
-        let qty =  $('#input_qty') ? $('#input_qty').val(): 1 ; 
-        // console.log(color,qty);                         
-        $.ajax({
-            method: "POST",
-            url: '/cart/add',
-            data: {
-                id,
-                qty,
-                color
-            }
-        }).done(function(data){            
-            showSnackbar("Đã thêm sản phẩm vào giỏ hàng !!!");
-            let count_cart = document.getElementById('count_cart');
-            count_cart.innerText = parseInt(count_cart.textContent) + 1;
-            // console.log(data);
-        });                                                     
-    }
-</script>
-@endsection
 {{-- @include('Pages.layout.content.QuickView'); --}}

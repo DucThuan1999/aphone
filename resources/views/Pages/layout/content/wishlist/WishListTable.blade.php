@@ -51,19 +51,3 @@
     </div>
 </div>
 <!--Wishlist Area End-->
-
-@section('script')
-<script>
-    function handleRemoveWishlist(id){        
-        $(`#products_row_${id}`).hide();        
-        $.ajax({
-            method: "POST",
-            url: 'wishlist/remove',
-            data: {id: id}
-        }).done(function(){
-            let count_wishlist = document.getElementById('count_wishlist');
-            count_wishlist.innerText = parseInt(count_wishlist.textContent) - 1;
-        });
-    }
-</script>
-@endsection

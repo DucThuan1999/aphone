@@ -59,7 +59,7 @@
                         <li class="hm-minicart">
                             <div class="hm-minicart-trigger">
                                 <span class="item-icon"></span>
-                                <span class="item-text">80.000 đ
+                                <span class="item-text">Giỏ hàng
                                     <span id="count_cart" class="cart-item-count">
                                         {{count($cart)}}</span>
                                 </span>
@@ -86,7 +86,7 @@
                                 </ul>
                                 <p class="minicart-total">
                                     TỔNG CỘNG:
-                                    <span>80.000 đ</span>
+                                    <span>{{Cart::total(0)}} đ</span>
                                 </p>
                                 <div class="minicart-button">
                                     <a href="/cart" class="li-button li-button-dark li-button-fullwidth li-button-sm">
@@ -108,39 +108,3 @@
     </div>
 </div>
 <!-- Header Middle Area End Here -->
-
-@section('script')
-<script>
-    $(document).ready(function(){
-        $('#input-search').on('keyup keypress',function(){
-            let query = $(this).val();
-            
-            if(query != ''){
-                let _token = $('input[name="_token"]').val(); 
-                
-                $.ajax({
-                    url:"{{route('search.suggetSearch')}}",
-                    method: "POST",
-                    data:{query:query,_token:_token}                    
-                }).success(function(data){
-                    $('#searchList').fadeIn();
-                    $('#searchList').html(data);
-                });
-            }
-        })
-    });
-    
-    $('#input-search').focusout(function(){
-        if($('#searchList').hasClass('show-searchList')){
-            $('#searchList').toggleClass('show-searchList'); 
-        }                    
-        $('#searchList').toggleClass('hide-changepassword');      
-    });
-    $('#input-search').focusin(function(){         
-        $('#searchList').toggleClass('show-searchList');    
-        if($('#searchList').hasClass('hide-changepassword')){
-            $('#searchList').toggleClass('hide-changepassword');
-        }
-    });
-</script>
-@append

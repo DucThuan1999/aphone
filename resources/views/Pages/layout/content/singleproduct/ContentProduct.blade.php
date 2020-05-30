@@ -60,9 +60,10 @@
                                     <br>
                                     <label>Số lượng</label>
                                     <div class="cart-plus-minus">
-                                        <input id="input_qty" class="cart-plus-minus-box" value="1" type="text">
-                                        <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                        <input id="input_qty" type="number" class="cart-plus-minus-box" value="1"
+                                            type="text">
+                                        {{-- <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div> --}}
                                     </div>
                                 </div>
                                 <button onclick="addCart({{$product->id}})" class=" add-to-cart" type="button"
