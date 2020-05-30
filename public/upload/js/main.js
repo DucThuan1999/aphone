@@ -108,7 +108,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
         loop: true,
         nav: true,
         dots: false,
-        autoplay: true,
+        autoplay: false,
         autoplayTimeout: 2000,
         navText: [
             "<i class='fa fa-angle-left'></i>",
@@ -515,9 +515,9 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
     /*----------------------------------------*/
     /* 22. Cart Plus Minus Button
 /*----------------------------------------*/
-    $(".cart-plus-minus").append(
-        '<div class="dec qtybutton"><i class="fa fa-angle-down"></i></div><div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>'
-    );
+    // $(".cart-plus-minus").append(
+    //     '<div class="dec qtybutton"><i class="fa fa-angle-down"></i></div><div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>'
+    // );
     $(".qtybutton").on("click", function () {
         var $button = $(this);
         var oldValue = $button.parent().find("input").val();
@@ -533,6 +533,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
         }
         $button.parent().find("input").val(newVal);
     });
+
     /*----------------------------------------*/
     /* 23. Single Prduct Carousel Activision
 /*----------------------------------------*/

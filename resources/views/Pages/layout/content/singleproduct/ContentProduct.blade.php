@@ -60,12 +60,13 @@
                                     <br>
                                     <label>Số lượng</label>
                                     <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" value="1" type="text">
+                                        <input id="input_qty" class="cart-plus-minus-box" value="1" type="text">
                                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                     </div>
                                 </div>
-                                <button class="add-to-cart" type="submit" style="font-weight:bold">Thêm vào giỏ</button>
+                                <button onclick="addCart({{$product->id}})" class=" add-to-cart" type="button"
+                                    style="font-weight:bold">Thêm vào giỏ</button>
                             </form>
                         </div>
                     </div>

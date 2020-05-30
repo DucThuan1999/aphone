@@ -68,8 +68,15 @@ Route::group(['prefix' => 'wishlist'], function () {
     Route::post('/remove', 'WishListController@removeWishList');
 });
 
-Route::get('/wishlist', 'WishListController@index');
-Route::get('/cart', 'CartController@index');
+Route::group(['prefix' => 'cart'], function () {
+    Route::get('/', 'CartController@index');
+    Route::post('/add', 'CartController@addItemCart');
+    Route::post('/remove', 'CartController@removeItemCart');
+    Route::post('/update', 'CartController@updateItemCart');
+    Route::post('/destroy', 'CartController@destroyCart');
+    Route::get('gettotalprice', 'CartController@getTotalPriceCart');
+});
+
 Route::get('/checkout', 'CheckoutController@index');
 
 

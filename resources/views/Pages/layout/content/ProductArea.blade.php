@@ -58,7 +58,8 @@
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
-                                            <li class="add-cart active"><a>Thêm vào giỏ</a></li>
+                                            <li class="add-cart active"><a onclick="addCart({{$product->id}})">Thêm vào
+                                                    giỏ</a></li>
                                             {{-- <li><a onclick="addWishList({{$product->id}}) "
                                             class="links-details"><i class="fa fa-heart-o"></i></a></li> --}}
                                             <li><a onclick="addWishList({{$product->id}})" class="links-details"><i
@@ -96,15 +97,31 @@
             method: "POST",
             url: '/wishlist/add',
             data: {id: id}
-        }).done(function(data){
-            let snackbar = document.getElementById("snackbar");
-            snackbar.innerHTML = "Đã thêm sản phẩm vào danh sách yêu thích !!!";
-            snackbar.className = "show";
-            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
-
+        }).done(function(){
+            showSnackbar("Đã thêm sản phẩm vào danh sách yêu thích !!!");
             let count_wishlist = document.getElementById('count_wishlist');
             count_wishlist.innerText = parseInt(count_wishlist.textContent) + 1;
             
+        });                                                     
+    }
+
+    function addCart(id){ 
+        let color = $('#select-colors option:selected').val() ? $('#select-colors option:selected').val() : null;
+        let qty =  $('#input_qty') ? $('#input_qty').val(): 1 ; 
+        // console.log(color,qty);                         
+        $.ajax({
+            method: "POST",
+            url: '/cart/add',
+            data: {
+                id,
+                qty,
+                color
+            }
+        }).done(function(data){            
+            showSnackbar("Đã thêm sản phẩm vào giỏ hàng !!!");
+            let count_cart = document.getElementById('count_cart');
+            count_cart.innerText = parseInt(count_cart.textContent) + 1;
+            // console.log(data);
         });                                                     
     }
 </script>
