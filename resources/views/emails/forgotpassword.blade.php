@@ -5,7 +5,7 @@
 vui lòng nhấn vào nút bên dưới.
 
 @component('mail::button', ['url' =>
-'http://127.0.0.1:8000/forgotpassword/change?email='.$user->email])
+'http://aphone-tmdt.herokuapp.com/forgotpassword/change?email='.$user->email])
 Đổi mật khẩu
 @endcomponent
 

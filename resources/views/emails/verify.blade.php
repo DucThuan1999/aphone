@@ -4,7 +4,8 @@
 {{$user->firstname}} {{$user->lastname}} thân mến.<br>Để đăng nhập vào tài khoản. Bạn
 vui lòng xác nhận email của mình.
 
-@component('mail::button', ['url' => 'http://127.0.0.1:8000/verify?email='.$user->email.'&password='.$user->password])
+@component('mail::button', ['url' =>
+'http://aphone-tmdt.herokuapp.com/verify?email='.$user->email.'&password='.$user->password])
 Xác nhận email
 @endcomponent
 
