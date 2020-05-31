@@ -13,9 +13,9 @@ class WishListController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $wishlist = WishList::where('user_id', $user->id)->get();
-            return view('Pages.WishList', ['wishlist' => $wishlist]);
+            return view('Pages.Wishlist', ['wishlist' => $wishlist]);
         } else
-            return view('Pages.WishList', ['wishlist' => []]);
+            return view('Pages.Wishlist', ['wishlist' => []]);
 
 
         // return $wishlist;
