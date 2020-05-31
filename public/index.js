@@ -82,6 +82,8 @@ function addCart(id) {
         showSnackbar("Đã thêm sản phẩm vào giỏ hàng !!!");
         let count_cart = document.getElementById("count_cart");
         count_cart.innerText = parseInt(count_cart.textContent) + 1;
+
+        $("#minicart-ul").html(data);
         // console.log(data);
     });
 }

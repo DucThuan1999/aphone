@@ -65,7 +65,7 @@
                             </div>
                             <span></span>
                             <div class="minicart">
-                                <ul class="minicart-product-list">
+                                <ul class="minicart-product-list" id="minicart-ul">
                                     @foreach ($cart as $itemCart)
                                     <li class="products_row_{{$itemCart->rowId}}">
                                         <a href="single-product.html" class="minicart-product-image">

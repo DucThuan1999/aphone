@@ -34,7 +34,7 @@ class CartController extends Controller
         } else {
             Cart::add($product, (int) $request->qty, ['colors' => $colors, 'colorSelected' => $request->color, 'img' => $product->image]);
         }
-        return Cart::content();
+        return $this->getLiMiniCart(Cart::content());
     }
 
     function updateItemCart(Request $request)
@@ -84,6 +84,29 @@ class CartController extends Controller
                         </ul>
                         <a href="/checkout">Tiến hành thanh toán</a>
                     </div>';
+        return $text;
+    }
+
+    function getLiMiniCart($cart)
+    {
+        $text = '';
+        foreach ($cart as $itemCart) {
+            $text .= '<li class="products_row_' . $itemCart->rowId . '">
+            <a href="single-product.html" class="minicart-product-image">
+                <img src="' . $itemCart->options->img . '" alt="cart products" />
+            </a>
+            <div class="minicart-product-details">
+                <h6>
+                    <a href="/products/' . $itemCart->id . '">' . $itemCart->name . '</a>
+                </h6>
+                <span>' . number_format($itemCart->price) . ' đ x ' . $itemCart->qty . '</span>
+            </div>
+            <button onclick="removeCart(' . $itemCart->rowId . ')" class="close">
+                <i class="fa fa-close"></i>
+            </button>
+        </li>';
+        }
+
         return $text;
     }
 }
