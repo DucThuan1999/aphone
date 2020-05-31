@@ -56,7 +56,8 @@
                                                         <li><a onclick="quickviewModal({{$product->id}})"
                                                                 title="quick view" class="quick-view-btn"><i
                                                                     class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="wishlist.html"><i
+                                                        <li><a class="links-details"
+                                                                onclick="addWishList({{$product->id}})"><i
                                                                     class="fa fa-heart-o"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -141,15 +142,3 @@
     </div>
 </div>
 <!-- Content Wraper Area End Here -->
-@section('script')
-<script>
-    function quickviewModal(id){
-        $.get("/ajax/"+id,function(data){                 
-            $('#exampleModalCenter').html(data);            
-        }).then(function(){            
-            $('#exampleModalCenter').modal('show');
-        });
-    }
-    
-</script>
-@endsection

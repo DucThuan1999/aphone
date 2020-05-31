@@ -1,8 +1,16 @@
+<?php
+    if(Auth::check()){
+        $cart = Cart::instance(Auth::user())->content();
+    }else{
+        $cart = Cart::content();
+    }    
+?>
 <!--Shopping Cart Area Strat-->
 <div class="Shopping-cart-area pt-60 pb-60">
     <div class="container">
         <div class="row">
             <div class="col-12">
+                @if($cart->count() != 0)
                 <form action="#">
                     <div class="table-content table-responsive">
                         <table class="table">
@@ -11,62 +19,89 @@
                                     <th class="li-product-remove">Xoá</th>
                                     <th class="li-product-thumbnail">Ảnh</th>
                                     <th class="cart-product-name">Tên sản phẩm</th>
+                                    <th class="li-product-quantity">Màu sắc</th>
                                     <th class="li-product-price">Đơn giá</th>
                                     <th class="li-product-quantity">Số lượng</th>
                                     <th class="li-product-subtotal">Tổng tiền</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img
-                                                src="upload/images/product/small-size/5.jpg"
+                                @foreach ($cart as $itemCart)
+                                <tr class="products_row_{{$itemCart->rowId}}">
+                                    <td class="li-product-remove"><a onclick="removeCart('{{$itemCart->rowId}}')"
+                                            href="javascript:void(0)"><i class="fa fa-times"></i></a></td>
+                                    <td class="li-product-thumbnail"><a href="/products/{{$itemCart->id}}"><img
+                                                width="150px" src="{{$itemCart->options->img}}"
                                                 alt="Li's Product Image"></a></td>
-                                    <td class="li-product-name"><a href="#">Accusantium dolorem1</a></td>
-                                    <td class="li-product-price"><span class="amount">$46.80</span></td>
+                                    <td class="li-product-name"><a
+                                            href="/products/{{$itemCart->id}}">{{$itemCart->name}}</a></td>
                                     <td class="quantity">
-                                        <label>Quantity</label>
+                                        {{-- <label>Số lượng</label> --}}
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                            <div class="produt-variants-size">
+                                                <select id="select_colors_{{$itemCart->rowId}}" class="nice-select">
+                                                    <option disabled selected>Màu</option>
+                                                    @foreach ($itemCart->options->colors as $color)
+                                                    @if($color->id ==
+                                                    $itemCart->options->colorSelected)
+                                                    <option selected value="{{$color->id}}">
+                                                        {{$color->name}}({{$color->products->first()->pivot->quantity}})
+                                                    </option>
+                                                    @else
+                                                    <option value="{{$color->id}}">
+                                                        {{$color->name}}({{$color->products->first()->pivot->quantity}})
+                                                    </option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
+                                                {{-- {{dd($itemCart->options->colors)}} --}}
+                                            </div>
                                         </div>
                                     </td>
-                                    <td class="product-subtotal"><span class="amount">$70.00</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img
-                                                src="upload/images/product/small-size/6.jpg"
-                                                alt="Li's Product Image"></a></td>
-                                    <td class="li-product-name"><a href="#">Mug Today is a good day</a></td>
-                                    <td class="li-product-price"><span class="amount">$71.80</span></td>
+                                    <td class="li-product-price"><span
+                                            class="amount">{{number_format($itemCart->price)}} đ</span></td>
                                     <td class="quantity">
-                                        <label>Quantity</label>
+                                        {{-- <label>Số lượng</label> --}}
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                            <input type="hidden" value="{{$itemCart->rowId}}">
+                                            <input type="number" min="1"
+                                                onchange="updateQtyItemCart('{{$itemCart->rowId}}',this.value)"
+                                                class="cart-plus-minus-box" value="{{$itemCart->qty}}" type="text">
+
                                         </div>
                                     </td>
-                                    <td class="product-subtotal"><span class="amount">$60.50</span></td>
+                                    <td class="product-subtotal"><span class="amount"
+                                            id="subtotal_{{$itemCart->rowId}}">{{number_format($itemCart->subtotal)}}
+                                            đ</span>
+                                    </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div class="row">
-                        <div class="col-md-5 ml-auto">
+                        <div id="showTotalPrice" class="col-md-5 ml-auto">
                             <div class="cart-page-total">
                                 <h2>Tổng cộng giỏ hàng</h2>
                                 <ul>
-                                    <li>Tổng tiền <span>$130.00</span></li>
-                                    <li>Thành tiền <span>$130.00</span></li>
+                                    <li>Tổng tiền <span>{{Cart::priceTotal(0)}}</span></li>
+                                    <li>Thành tiền <span>{{Cart::total(0)}}</span></li>
                                 </ul>
                                 <a href="/checkout">Tiến hành thanh toán</a>
                             </div>
                         </div>
                     </div>
                 </form>
+                @else
+                <div class="error-wrapper text-center ptb-50 pt-xs-20">
+                    <div class="error-text">
+                        <p>Giỏ hàng trống.</p>
+                    </div>
+                    <div class="error-button">
+                        <a href="/">Tiếp tục mua sắm</a>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

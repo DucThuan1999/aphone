@@ -64,12 +64,19 @@ Route::group(['prefix' => 'infouser'], function () {
 
 Route::group(['prefix' => 'wishlist'], function () {
     Route::get('/', 'WishListController@index');
-    Route::get('/add/{id}', 'WishListController@addWishList');
+    Route::post('/add', 'WishListController@addWishList');
     Route::post('/remove', 'WishListController@removeWishList');
 });
 
-Route::get('/wishlist', 'WishListController@index');
-Route::get('/cart', 'CartController@index');
+Route::group(['prefix' => 'cart'], function () {
+    Route::get('/', 'CartController@index');
+    Route::post('/add', 'CartController@addItemCart');
+    Route::post('/remove', 'CartController@removeItemCart');
+    Route::post('/update', 'CartController@updateItemCart');
+    Route::post('/destroy', 'CartController@destroyCart');
+    Route::get('gettotalprice', 'CartController@getTotalPriceCart');
+});
+
 Route::get('/checkout', 'CheckoutController@index');
 
 
@@ -78,6 +85,7 @@ Route::group(['prefix' => 'ajax'], function () {
     Route::get('suppliers/{id}', 'AjaxController@getSuplliersByCategory');
     Route::get('colors/getcolors', 'AjaxController@getColors');
     Route::get('colors/getcolorsbyproduct/{id}', 'AjaxController@getColorsByProduct');
+    Route::post('qty/getqtybycolor', 'AjaxController@getQtyByColors');
     Route::post('suggestsearch', 'AjaxController@suggestSearch')->name('search.suggetSearch');
 });
 

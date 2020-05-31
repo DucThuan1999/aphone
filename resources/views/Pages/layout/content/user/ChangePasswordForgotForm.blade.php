@@ -63,12 +63,3 @@
     </div>
 </div>
 <!-- Login Content Area End Here -->
-@section('script')
-<script>
-    $(document).ready(function(){
-        let urlParams = new URLSearchParams(window.location.search);
-        let email = urlParams.get('email');
-        $('#input-email').val(email);
-    });
-</script>
-@endsection
