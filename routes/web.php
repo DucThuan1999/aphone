@@ -77,8 +77,11 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('gettotalprice', 'CartController@getTotalPriceCart');
 });
 
-Route::get('/checkout', 'CheckoutController@index');
 
+Route::group(['prefix' => 'checkout'], function () {
+    Route::get("/", 'CheckoutController@index');
+    Route::post("/bills/add", 'CheckoutController@addBills');
+});
 
 Route::group(['prefix' => 'ajax'], function () {
     Route::get('{id}', 'AjaxController@getProductQuickView');
@@ -87,10 +90,20 @@ Route::group(['prefix' => 'ajax'], function () {
     Route::get('colors/getcolorsbyproduct/{id}', 'AjaxController@getColorsByProduct');
     Route::post('qty/getqtybycolor', 'AjaxController@getQtyByColors');
     Route::post('suggestsearch', 'AjaxController@suggestSearch')->name('search.suggetSearch');
+
+    Route::group(['prefix' => 'location'], function () {
+        Route::get('/', 'AjaxController@getLocation');
+        Route::get('/province', 'AjaxController@getProvince');
+        Route::get('/province/{id}/district', 'AjaxController@getDistrictByProvince');
+        Route::get('/district/{id}/ward', 'AjaxController@getWardByDistrict');
+    });
 });
+
+
+
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::fallback(function () {
     return view('Pages.404');
 });
-
-Route::get('/home', 'HomeController@index')->name('home');

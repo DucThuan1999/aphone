@@ -1338,7 +1338,7 @@ textarea:focus {
     margin-right: 15px;
     position: relative;
     width: 76px;
-    text-align: left;
+    text-align: center;
 }
 .cart-plus-minus .cart-plus-minus-box {
     border: 1px solid #e1e1e1;
@@ -4055,7 +4055,7 @@ thead {
 }
 .your-order-table table th {
     border-top: medium none;
-    font-weight: normal;
+    font-weight: bold;
     text-align: center;
     text-transform: uppercase;
     vertical-align: middle;
@@ -4067,7 +4067,7 @@ thead {
     border-bottom: 1px solid #d8d8d8;
     border-right: medium none;
     font-size: 14px;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Opensans", sans-serif;
     padding: 15px 0;
     text-align: center;
 }
@@ -4186,6 +4186,38 @@ thead {
 }
 .login-form .nice-select .list {
     width: 100%;
+}
+
+.login-form .nice-select-custom {
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid #999999;
+    border-radius: 0;
+    line-height: 23px;
+    padding: 10px 20px;
+    font-size: 14px;
+    height: 45px;
+    color: #7a7a7a;
+    margin-bottom: 15px;
+}
+.login-form .nice-select-custom::after {
+    width: 6px;
+    height: 6px;
+    border-width: 1px;
+    right: 20px;
+    border-color: #7a7a7a;
+}
+.login-form .nice-select-custom .current {
+    color: #7a7a7a;
+    display: block;
+    line-height: 23px;
+}
+.login-form .nice-select-custom .list {
+    width: 100%;
+}
+.list-custom {
+    overflow: auto;
+    height: 200px;
 }
 .login-form input {
     width: 100%;
@@ -4441,7 +4473,7 @@ thead {
     /* font-family: Poppins; */
 }
 .li-blog-sidebar .li-blog-sidebar-title::before {
-    width: 55px;
+    width: 100%;
     height: 2px;
     bottom: -25px;
     left: 0;
@@ -6079,7 +6111,7 @@ input[type="radio"][name="color"]:checked:after {
 .irs-disabled {
 }
 
-.hide-changepassword {
+.hide {
     display: none;
 }
 
@@ -6118,6 +6150,16 @@ input[type="radio"][name="color"]:checked:after {
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+.radio-custom {
+    height: 16px;
+    width: auto;
+    line-height: 10px;
+}
+
+.text-initial {
+    display: initial;
+    font-size: 17px;
+}
 @-webkit-keyframes fadein {
     from {
         bottom: 0;

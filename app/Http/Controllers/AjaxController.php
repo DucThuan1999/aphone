@@ -7,6 +7,10 @@ use App\Products;
 use App\Suppliers;
 use App\Images;
 use App\Colors;
+use App\District;
+use App\Providers\DistrictServiceProvider;
+use App\Province;
+use App\Ward;
 
 class AjaxController extends Controller
 {
@@ -25,7 +29,7 @@ class AjaxController extends Controller
     }
     function getProductQuickView($id)
     {
-        $product = Products::where('id', $id)->get()[0];
+        $product = Products::where('id', $id)->first();
         $images = Images::where('product_id', $id)->get();
 
         $text = '        
@@ -175,5 +179,44 @@ class AjaxController extends Controller
 
             return $output;
         }
+    }
+
+    function getLocation()
+    {
+        $provices = Province::all();
+        $districts = District::all();
+        $wards = Ward::all();
+
+        return ['provices' => $provices, 'districts' => $districts, 'wards' => $wards];
+    }
+
+    function getProvince()
+    {
+        $provices = Province::all();
+        return $provices;
+    }
+
+    function getDistrictByProvince($id)
+    {
+        $districts = District::where('_province_id', $id)->get();
+        $text = '<option disabled selected>Quận huyện</option>';
+
+        foreach ($districts as $district) {
+            $text .= '<option value="' . $district->id . '">' . $district->_name . '</option>';
+        }
+
+        return $text;
+    }
+
+    function getWardByDistrict($id)
+    {
+        $wards = Ward::where('_district_id', $id)->get();
+        $text = '<option disabled selected>Phường xã</option>';
+
+        foreach ($wards as $ward) {
+            $text .= '<option value="' . $ward->id . '">' . $ward->_name . '</option>';
+        }
+
+        return $text;
     }
 }

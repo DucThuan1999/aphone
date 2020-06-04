@@ -2,7 +2,7 @@
 <div class="page-section mb-60">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12" style="margin: auto">
+            <div class="col-sm-12 col-md-12 col-lg-8 col-xs-12" style="margin: auto">
                 <form style="margin-top: 4em" action="/register" method="POST">
                     @csrf
                     <div class="login-form">
@@ -20,9 +20,33 @@
                                 <label>Email:</label>
                                 <input name="email" class="mb-0" type="email" placeholder="Nhập email">
                             </div>
+                            <div class="col-md-4 mb-20">
+                                <label>Tỉnh / Thành phố:</label>
+                                <select onchange="changeCity()" class="nice-select" name="province" id="select_city">
+                                    <option disabled selected>Tỉnh / Thành phố </option>
+                                    @if($provinces)
+                                    @foreach ($provinces as $province)
+                                    <option value="{{$province->id}}">{{$province->_name}}</option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-20">
+                                <label>Quận huyện:</label>
+                                <select onchange="changeDistrict()" class="nice-select-custom" name="district"
+                                    id="select_district">
+                                    <option disabled selected>Quận huyện</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-20">
+                                <label>Phường xã:</label>
+                                <select class="nice-select-custom" name="ward" id="select_ward">
+                                    <option disabled selected>Phường xã</option>
+                                </select>
+                            </div>
                             <div class="col-md-12 mb-20">
                                 <label>Địa chỉ:</label>
-                                <input name="address" class="mb-0" type="text" placeholder="Nhập địa chỉ">
+                                <input name="street" class="mb-0" type="text" placeholder="Nhập địa chỉ">
                             </div>
                             <div class="col-md-12 mb-20">
                                 <label>Sđt:</label>

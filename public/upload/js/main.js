@@ -76,12 +76,17 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
     /*  04. Nice Select
 /*----------------------------------------*/
     $(document).ready(function () {
-        let route = window.location.href.split("/");
-        let id = route[route.length - 1];
-        $.get("/ajax/colors/getcolorsbyproduct/" + id, function (data) {
-            $("#select-colors").html(data);
-            $(".nice-select").niceSelect();
-        });
+        if ($("#select-colors .nice-select").length) {
+            let route = window.location.href.split("/");
+            let id = route[route.length - 1];
+            $.get("/ajax/colors/getcolorsbyproduct/" + id, function (data) {
+                $("#select-colors").html(data);
+                $("#select-colors .nice-select").niceSelect();
+            });
+        }
+        if ($("#select_city").length) {
+            $("#select_city").niceSelect();
+        }
     });
     /*----------------------------------------*/
     /* 05. Main Slider Activision

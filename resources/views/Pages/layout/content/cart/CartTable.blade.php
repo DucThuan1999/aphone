@@ -66,8 +66,7 @@
                                             <input type="hidden" value="{{$itemCart->rowId}}">
                                             <input type="number" min="1"
                                                 onchange="updateQtyItemCart('{{$itemCart->rowId}}',this.value)"
-                                                class="cart-plus-minus-box" value="{{$itemCart->qty}}" type="text">
-
+                                                class="cart-plus-minus-box" value="{{$itemCart->qty}}">
                                         </div>
                                     </td>
                                     <td class="product-subtotal"><span class="amount"
@@ -84,10 +83,11 @@
                             <div class="cart-page-total">
                                 <h2>Tổng cộng giỏ hàng</h2>
                                 <ul>
-                                    <li>Tổng tiền <span>{{Cart::priceTotal(0)}}</span></li>
-                                    <li>Thành tiền <span>{{Cart::total(0)}}</span></li>
+                                    <li>Tổng tiền <span>{{Cart::priceTotal(0)}} đ</span></li>
+                                    <li>Thành tiền <span>{{Cart::total(0)}} đ</span></li>
                                 </ul>
-                                <a href="/checkout">Tiến hành thanh toán</a>
+                                <a onclick="validateCheckout()" href="javascript:;">Tiến hành thanh
+                                    toán</a>
                             </div>
                         </div>
                     </div>

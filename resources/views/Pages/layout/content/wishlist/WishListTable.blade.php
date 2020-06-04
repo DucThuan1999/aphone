@@ -27,8 +27,8 @@
                                     <td class="li-product-name"><a
                                             href="/products/{{$wishitem->products->id}}">{{$wishitem->products->name}}</a>
                                     </td>
-                                    <td class="li-product-price"><span
-                                            class="amount">{{$wishitem->products->price}}</span></td>
+                                    <td class="li-product-price"><span class="amount">{{$wishitem->products->price}}
+                                            đ</span></td>
                                     <td class="li-product-add-cart"><a href="#">Thêm vào giỏ</a></td>
                                 </tr>
                                 @endforeach
