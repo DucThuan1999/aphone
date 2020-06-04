@@ -271,21 +271,22 @@ function loadWard(id) {
 }
 
 $(document).ready(function () {
-    $.ajax({
-        method: "GET",
-        url: `ajax/location/province`,
-    })
-        .done(function (data) {
-            let text = "<option disabled selected>Tỉnh/Thành phố</option>";
-            data.forEach((province) => {
-                return (text += `<option value='${province.id}'>${province._name}</option>`);
-            });
-
-            $("#select_another_province").html(text);
+    if ($("#select_another_province").length)
+        $.ajax({
+            method: "GET",
+            url: `ajax/location/province`,
         })
-        .then(function () {
-            $("#select_another_province").niceSelect();
-        });
+            .done(function (data) {
+                let text = "<option disabled selected>Tỉnh/Thành phố</option>";
+                data.forEach((province) => {
+                    return (text += `<option value='${province.id}'>${province._name}</option>`);
+                });
+
+                $("#select_another_province").html(text);
+            })
+            .then(function () {
+                $("#select_another_province").niceSelect();
+            });
 });
 function changeAnotherProvince() {
     let id = $("#select_another_province").val();
