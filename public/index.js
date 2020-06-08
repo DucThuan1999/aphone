@@ -68,7 +68,7 @@ function addCart(id) {
     let color = $("#select-colors option:selected").val()
         ? $("#select-colors option:selected").val()
         : null;
-    let qty = $("#input_qty") ? $("#input_qty").val() : 1;
+    let qty = $("#input_qty").length ? parseInt($("#input_qty").val()) : 1;
     // console.log(color,qty);
     $.ajax({
         method: "POST",
@@ -81,8 +81,7 @@ function addCart(id) {
     }).done(function (data) {
         showSnackbar("Đã thêm sản phẩm vào giỏ hàng !!!");
         let count_cart = document.getElementById("count_cart");
-        count_cart.innerText = parseInt(count_cart.textContent) + qty;
-
+        count_cart.innerText = parseInt(count_cart.textContent) + 1;
         $("#minicart-ul").html(data);
         // console.log(data);
     });
@@ -144,9 +143,63 @@ $("#select-filter").change(function () {
 });
 
 $(document).ready(function () {
-    let urlParams = new URLSearchParams(window.location.search);
-    let email = urlParams.get("email");
-    $("#input-email").val(email);
+    $("#input-search").on("keyup keypress", function () {
+        let query = $(this).val();
+
+        if (query != "") {
+            let _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: "ajax/suggestsearch",
+                method: "POST",
+                data: { query: query, _token: _token },
+            }).success(function (data) {
+                $("#searchList").fadeIn();
+                $("#searchList").html(data);
+            });
+        }
+    });
+    if ($("#input-email").length) {
+        let urlParams = new URLSearchParams(window.location.search);
+        let email = urlParams.get("email");
+        $("#input-email").val(email);
+    }
+    if ($("#select_another_province").length)
+        $.ajax({
+            method: "GET",
+            url: `ajax/location/province`,
+        })
+            .done(function (data) {
+                let text = "<option disabled selected>Tỉnh/Thành phố</option>";
+                data.forEach((province) => {
+                    return (text += `<option value='${province.id}'>${province._name}</option>`);
+                });
+
+                $("#select_another_province").html(text);
+            })
+            .then(function () {
+                $("#select_another_province").niceSelect();
+            });
+    if ($("#paypal-button-script").length) {
+        $.ajax({
+            method: "POST",
+            url: "/cart/paypal/getbutton",
+            data: {},
+        }).then(function (data) {
+            console.log(data);
+            $("#paypal-button-script").html(data.button);
+        });
+    }
+    if ($("#paypal-button-deposit-script").length) {
+        $.ajax({
+            method: "POST",
+            url: "/cart/paypal/getbuttondeposit",
+            data: {},
+        }).then(function (data) {
+            console.log(data);
+            $("#paypal-button-deposit-script").html(data.button);
+        });
+    }
 });
 
 function handleChangepasswordCheckbox() {
@@ -164,25 +217,6 @@ function handleRemoveWishlist(id) {
         count_wishlist.innerText = parseInt(count_wishlist.textContent) - 1;
     });
 }
-
-$(document).ready(function () {
-    $("#input-search").on("keyup keypress", function () {
-        let query = $(this).val();
-
-        if (query != "") {
-            let _token = $('input[name="_token"]').val();
-
-            $.ajax({
-                url: "{{route('search.suggetSearch')}}",
-                method: "POST",
-                data: { query: query, _token: _token },
-            }).success(function (data) {
-                $("#searchList").fadeIn();
-                $("#searchList").html(data);
-            });
-        }
-    });
-});
 
 $("#input-search").focusout(function () {
     if ($("#searchList").hasClass("show-searchList")) {
@@ -270,24 +304,6 @@ function loadWard(id) {
     });
 }
 
-$(document).ready(function () {
-    if ($("#select_another_province").length)
-        $.ajax({
-            method: "GET",
-            url: `ajax/location/province`,
-        })
-            .done(function (data) {
-                let text = "<option disabled selected>Tỉnh/Thành phố</option>";
-                data.forEach((province) => {
-                    return (text += `<option value='${province.id}'>${province._name}</option>`);
-                });
-
-                $("#select_another_province").html(text);
-            })
-            .then(function () {
-                $("#select_another_province").niceSelect();
-            });
-});
 function changeAnotherProvince() {
     let id = $("#select_another_province").val();
     loadAnotherDistrict(id);
@@ -313,4 +329,19 @@ function loadAnotherWard(id) {
         $("#select_another_ward").html(data);
         $("#select_another_ward").niceSelect();
     });
+}
+
+function handlePaymentMethod() {
+    $("#paypal-button-container").toggleClass("hide");
+}
+
+function handleCheckShipAnother() {
+    $(".radio-custom[name='address']").prop("checked", false);
+}
+
+function handleAddressRadio() {
+    if ($("#ship-box:checked").length) {
+        $("#ship-box-info").slideToggle(1000);
+    }
+    $("#ship-box").prop("checked", false);
 }

@@ -11,6 +11,7 @@ use App\District;
 use App\Providers\DistrictServiceProvider;
 use App\Province;
 use App\Ward;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class AjaxController extends Controller
 {

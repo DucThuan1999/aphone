@@ -46,10 +46,13 @@
     <link rel="stylesheet" href="upload/css/responsive.css" />
     <!-- Modernizr js -->
     <script src="upload/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=ASomrpjI4I0wCBPxoJXA_OJSs3UNre6XiL7q7lEaFSarbrQ69CT6C-PCClGRqmUkevQm3RjGw3x3ZL6s&disable-funding=card&buyer-country=VN">
+        // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+    </script>
 </head>
 
 <body>
-
     <!-- Begin Body Wrapper -->
     <div class="body-wrapper">
 
@@ -105,7 +108,7 @@
     <script src="upload/js/scrollUp.min.js"></script>
     <!-- Main/Activator js -->
     <script src="upload/js/main.js"></script>
-    <script src="index.js"></script>
+
     <script>
         $.ajaxSetup({
             headers: {

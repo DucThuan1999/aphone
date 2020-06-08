@@ -74,13 +74,16 @@ Route::group(['prefix' => 'cart'], function () {
     Route::post('/remove', 'CartController@removeItemCart');
     Route::post('/update', 'CartController@updateItemCart');
     Route::post('/destroy', 'CartController@destroyCart');
-    Route::get('gettotalprice', 'CartController@getTotalPriceCart');
+    Route::get('/gettotalprice', 'CartController@getTotalPriceCart');
+    Route::post('/paypal/getbutton', 'CartController@getPaypalButton');
+    Route::post('/paypal/getbuttondeposit', 'CartController@getPaypalButtonDeposit');
 });
 
 
 Route::group(['prefix' => 'checkout'], function () {
     Route::get("/", 'CheckoutController@index');
     Route::post("/bills/add", 'CheckoutController@addBills');
+    Route::get("/success", 'CheckoutController@success');
 });
 
 Route::group(['prefix' => 'ajax'], function () {
@@ -89,7 +92,7 @@ Route::group(['prefix' => 'ajax'], function () {
     Route::get('colors/getcolors', 'AjaxController@getColors');
     Route::get('colors/getcolorsbyproduct/{id}', 'AjaxController@getColorsByProduct');
     Route::post('qty/getqtybycolor', 'AjaxController@getQtyByColors');
-    Route::post('suggestsearch', 'AjaxController@suggestSearch')->name('search.suggetSearch');
+    Route::post('/suggestsearch', 'AjaxController@suggestSearch')->name('search.suggetSearch');
 
     Route::group(['prefix' => 'location'], function () {
         Route::get('/', 'AjaxController@getLocation');
@@ -98,9 +101,6 @@ Route::group(['prefix' => 'ajax'], function () {
         Route::get('/district/{id}/ward', 'AjaxController@getWardByDistrict');
     });
 });
-
-
-
 
 Route::get('/home', 'HomeController@index')->name('home');
 

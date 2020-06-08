@@ -44,26 +44,14 @@
                                     <label>Địa chỉ nhận hàng: <span class="required">*</span></label>
                                     <ul>
                                         @foreach ($addresses as $address)
-                                        @if($address->default == 1)
                                         <li class="mt-15">
-                                            <input class="radio-custom" checked name="address" value="{{$address->id}}"
-                                                type="radio">
-                                            <h5 class="text-initial">{{$address->street}},
-                                                {{$address->ward->first()->_name}},
-                                                {{$address->district->first()->_name}},
-                                                {{$address->province->first()->_name}}
-                                            </h5>
-                                        </li>
-                                        @else
-                                        <li class="mt-15">
-                                            <input class="radio-custom" name="address" value="{{$address->id}}"
-                                                type="radio">
+                                            <input onclick="handleAddressRadio()" class="radio-custom" name="address"
+                                                value="{{$address->id}}" type="radio">
                                             <h5 class="text-initial">{{$address->street}},
                                                 {{$address->ward->first()->_name}},
                                                 {{$address->district->first()->_name}},
                                                 {{$address->province->first()->_name}}</h5>
                                         </li>
-                                        @endif
                                         @endforeach
                                     </ul>
                                 </div>
@@ -176,44 +164,29 @@
                                             </h5>
                                         </div>
                                         <div id="collapseOne" class="collapse show" data-parent="#accordion">
-                                            <div class="card-body mb-15">
-                                                <ul>
+                                            <div class="card-body">
+                                                <ul class="mb-15">
                                                     <li>
-                                                        <input class="radio-custom" type="radio" name="method_payment"
-                                                            value="">
+                                                        <input onchange="handlePaymentMethod()" checked
+                                                            class="radio-custom" type="radio" name="method_payment"
+                                                            value="0">
                                                         <p class="text-initial">Thanh toán khi nhận hàng</p>
                                                     </li>
                                                     <li>
-                                                        <input class="radio-custom" type="radio" name="method_payment"
-                                                            value="">
+                                                        <input onchange="handlePaymentMethod()" id="payment-radio"
+                                                            class="radio-custom" type="radio" name="method_payment"
+                                                            value="1">
                                                         <p class="text-initial">Thanh toán qua thẻ tín dụng</p>
                                                     </li>
                                                 </ul>
+                                                <div class="hide" id="paypal-button-container"></div>
+                                                <div class="hide" id="paypal-button-script"></div>
                                             </div>
+
                                         </div>
                                     </div>
-
                                     <div class="card">
                                         <div class="card-header" id="#payment-2">
-                                            <h5 class="panel-title">
-                                                <a class="collapsed" data-toggle="collapse" data-target="#collapseThree"
-                                                    aria-expanded="false" aria-controls="collapseThree">
-                                                    PayPal
-                                                </a>
-                                            </h5>
-                                        </div>
-                                        <div id="collapseThree" class="collapse" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <p>Make your payment directly into our bank account. Please use your
-                                                    Order
-                                                    ID as the payment reference. Your order won’t be shipped until the
-                                                    funds
-                                                    have cleared in our account.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header" id="#payment-3">
                                             <h5 class="panel-title">
                                                 <a class="collapsed" data-toggle="collapse" data-target="#collapseTwo"
                                                     aria-expanded="false" aria-controls="collapseTwo">
@@ -236,6 +209,22 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    {{-- <div class="card">
+                                        <div class="card-header" id="#payment-2">
+                                            <h5 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                    PayPal
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                            <div class="card-body">
+
+                                            </div>
+                                        </div>
+                                    </div> --}}
                                 </div>
                                 <div class="order-button-payment">
                                     <input value="Đặt hàng" type="submit">

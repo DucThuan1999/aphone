@@ -117,7 +117,8 @@
                                         <div class="col-lg-4">
                                             <div class="shop-add-action mb-xs-30">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart"><a href="#">Thêm vào giỏ</a></li>
+                                                    <li class="add-cart"><a onclick="addCart({{$product->id}})"
+                                                            href="javacript:void(0)">Thêm vào giỏ</a></li>
                                                     <li class="wishlist"><a href="wishlist.html"><i
                                                                 class="fa fa-heart-o"></i>Yêu thích</a></li>
                                                     <li><a onclick="quickviewModal({{$product->id}})"
