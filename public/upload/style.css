@@ -1478,10 +1478,10 @@ textarea:focus {
 /*----------------------------------------*/
 #scrollUp {
     right: 25px;
-    bottom: 25px;
-    height: 50px;
-    width: 50px;
-    line-height: 50px;
+    bottom: 90px;
+    height: 55px;
+    width: 60px;
+    line-height: 60px;
     border-radius: 100%;
     text-align: center;
     background: #242424 none repeat scroll 0 0;
