@@ -20,7 +20,11 @@
                                                 <a href="/products/{{$product->id}}">
                                                     <img src="{{$product->image}}" alt="Li's Product Image">
                                                 </a>
-                                                <span class="sticker">Mới</span>
+                                                @empty($product->promotions->first()->pivot->percent)
+                                                @else
+                                                <span
+                                                    class="sticker ">-{{$product->promotions->first()->pivot->percent}}%</span>
+                                                @endempty
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info">
@@ -45,14 +49,24 @@
                                                             href="/products/{{$product->id}}">{{$product->name}}</a>
                                                     </h4>
                                                     <div class="price-box">
+                                                        @empty($product->promotions->first()->pivot->percent)
                                                         <span
                                                             class="new-price">{{number_format($product->price)}}đ</span>
+                                                        @else
+                                                        <span
+                                                            class="new-price new-price-2">{{number_format($product->price * (1 - $product->promotions->first()->pivot->percent / 100))}}
+                                                            đ</span>
+                                                        <span class="old-price">{{number_format($product->price)}}
+                                                            đ</span>
+                                                        @endempty
                                                     </div>
                                                 </div>
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="shopping-cart.html">Thêm
-                                                                vào giỏ</a></li>
+                                                        {{-- <li class="add-cart active"><a
+                                                                onclick="addCart({{$product->id}})">Thêm
+                                                        vào
+                                                        giỏ</a></li> --}}
                                                         <li><a onclick="quickviewModal({{$product->id}})"
                                                                 title="quick view" class="quick-view-btn"><i
                                                                     class="fa fa-eye"></i></a></li>
@@ -63,7 +77,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <!-- single-product-wrap end -->
                                     </div>
                                     @endforeach

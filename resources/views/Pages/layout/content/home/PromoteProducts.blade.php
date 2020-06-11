@@ -1,27 +1,21 @@
-<!-- Begin Li's Laptop Product Area -->
-<section class="product-area li-laptop-product pt-60 pb-45">
+<!-- Begin Li's Trendding Products Area -->
+<section class="product-area li-laptop-product li-trendding-products best-sellers pb-45 mt-45">
     <div class="container">
         <div class="row">
             <!-- Begin Li's Section Area -->
             <div class="col-lg-12">
                 <div class="li-section-title">
                     <h2>
-                        <span id="button-category">{{$title}}</span>
+                        <span>Sản phẩm khuyến mãi</span>
                     </h2>
-                    <ul class="li-sub-category-list">
-                        @foreach ($categories as $category)
-                        <li class="active"><a
-                                href="{{route('products.index',['categories'=> $category->id])}}">{{$category->name}}</a>
-                        </li>
-                        @endforeach
-                        {{-- <li class="active"><a href="shop-left-sidebar.html">Prime Video</a></li>
-                        <li><a href="shop-left-sidebar.html">Computers</a></li>
-                        <li><a href="shop-left-sidebar.html">Electronics</a></li> --}}
-                    </ul>
                 </div>
                 <div class="row">
-                    <div class="product-active owl-carousel" id="products-area">
-                        @foreach ($products as $product)
+                    <div class="product-active owl-carousel">
+                        @foreach ($productsPromotion as $product)
+                        <?php 
+                            $percent = $product->promotions->first()->pivot->percent;
+                            $new_price = $product->price * (1 - $percent / 100);
+                        ?>
                         <div class="col-lg-12">
                             <!-- single-product-wrap start -->
                             <div class="single-product-wrap">
@@ -29,10 +23,9 @@
                                     <a href="/products/{{$product->id}}">
                                         <img src="{{$product->image}}" alt="Li's Product Image">
                                     </a>
-                                    @empty($product->promotions->first()->pivot->percent)
-                                    @else
-                                    <span class="sticker ">-{{$product->promotions->first()->pivot->percent}}%</span>
-                                    @endempty
+                                    @if($product->promotions->first()->pivot->type_discount === "percent")
+                                    <span class="sticker ">-{{$percent}}%</span>
+                                    @endif
                                 </div>
                                 <div class="product_desc">
                                     <div class="product_desc_info">
@@ -56,15 +49,8 @@
                                                 href="/products/{{$product->id}}">{{$product->name}}</a>
                                         </h4>
                                         <div class="price-box">
-                                            @empty($product->promotions->first()->pivot->percent)
-                                            <span class="new-price">{{number_format($product->price)}}đ</span>
-                                            @else
-                                            <span
-                                                class="new-price new-price-2">{{number_format($product->price * (1 - $product->promotions->first()->pivot->percent / 100))}}
-                                                đ</span>
+                                            <span class="new-price new-price-2">{{number_format($new_price)}} đ</span>
                                             <span class="old-price">{{number_format($product->price)}} đ</span>
-                                            @endempty
-
                                         </div>
                                     </div>
                                     <div class="add-actions">
@@ -93,6 +79,4 @@
         </div>
     </div>
 </section>
-<!-- Li's Laptop Product Area End Here -->
-
-{{-- @include('Pages.layout.content.QuickView'); --}}
+<!-- Li's Trendding Products Area End Here -->

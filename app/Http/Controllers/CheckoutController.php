@@ -4,16 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use App\Bills;
+use App\Colors_products;
 use App\Info_bills;
+use App\Mail\Deposit;
+use App\Mail\ConfirmOrder;
+use App\Products;
+use App\Users;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
     function success()
     {
         $user = Auth::user();
+        $this->updateQty();
         Cart::instance($user)->destroy();
         return view('Pages.CheckoutSuccess');
     }
@@ -48,15 +55,14 @@ class CheckoutController extends Controller
 
             $address->save();
         }
-        $bill->status = 1;
+        $bill->status = 1; // đang xử lý
         $bill->total = (float) str_replace(',', '', Cart::priceTotal(0));
         $bill->user_id = $user->id;
         $bill->total_discount = (float) str_replace(',', '', Cart::discount(0));
         $bill->note = $request->note;
         $bill->payment = $request->method_payment;
-        $bill->address_id = $address->id !== null ? $address->id : 0;
+        $bill->address_id = $request->address != null ? $request->address : $address->id;
         $bill->save();
-
 
         $array_info_bill = [];
         foreach ($cart as $itemCart) {
@@ -71,10 +77,29 @@ class CheckoutController extends Controller
         }
 
         if ($bill->total >= 7000000) {
+            Mail::to($user)->send(new Deposit($user));
             return view('Pages.Deposit');
         } else {
+            Mail::to($user)->send(new ConfirmOrder($user));
             return redirect('/checkout/success');
         }
         // return ['cart' => $cart, 'bill' => $bill, 'address' => $address, $array_info_bill];
+    }
+
+    function updateQty()
+    {
+        $user = Auth::user();
+        $cart = Cart::instance($user)->content();
+        foreach ($cart as $itemCart) {
+            $product_id = $itemCart->id;
+            $old_product_qty = Products::find($product_id)->qty;
+            $color_id = $itemCart->options->colorSelected;
+            $old_color_qty = Colors_products::where('product_id', $product_id)->where('color_id', $color_id)->first()->quantity;
+
+            Colors_products::where('product_id', $product_id)
+                ->where('color_id', $color_id)->update(['quantity' => $old_color_qty - 1]);
+
+            Products::find($product_id)->update(['qty' => $old_product_qty - 1]);
+        }
     }
 }

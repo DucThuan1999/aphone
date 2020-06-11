@@ -32,7 +32,10 @@ Route::group(['prefix' => 'products'], function () {
     // Route::get('/category/{id}', 'ProductsPageController@getProductsByIdCategory');
 });
 
-Route::get('/compare', 'CompareController@index');
+Route::group(['prefix' => 'compare'], function () {
+    Route::get('/', 'CompareController@index');
+    Route::post('/', 'CompareController@compare');
+});
 
 Route::get('/contact', 'ContactController@index');
 
@@ -86,6 +89,11 @@ Route::group(['prefix' => 'checkout'], function () {
     Route::get("/success", 'CheckoutController@success');
 });
 
+Route::group(['prefix' => 'promotions'], function () {
+    Route::get('/', 'PromotionController@index');
+    Route::get('{id}', 'PromotionController@single');
+});
+
 Route::group(['prefix' => 'ajax'], function () {
     Route::get('{id}', 'AjaxController@getProductQuickView');
     Route::get('suppliers/{id}', 'AjaxController@getSuplliersByCategory');
@@ -93,6 +101,8 @@ Route::group(['prefix' => 'ajax'], function () {
     Route::get('colors/getcolorsbyproduct/{id}', 'AjaxController@getColorsByProduct');
     Route::post('qty/getqtybycolor', 'AjaxController@getQtyByColors');
     Route::post('/suggestsearch', 'AjaxController@suggestSearch')->name('search.suggetSearch');
+    Route::post('/suggestsearch1', 'AjaxController@suggestSearch1')->name('search.suggetSearch1');
+    Route::post('/suggestsearch2', 'AjaxController@suggestSearch2')->name('search.suggetSearch2');
 
     Route::group(['prefix' => 'location'], function () {
         Route::get('/', 'AjaxController@getLocation');
@@ -101,8 +111,6 @@ Route::group(['prefix' => 'ajax'], function () {
         Route::get('/district/{id}/ward', 'AjaxController@getWardByDistrict');
     });
 });
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::fallback(function () {
     return view('Pages.404');

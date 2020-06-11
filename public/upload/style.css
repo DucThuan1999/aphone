@@ -86,6 +86,14 @@ a {
 a:hover {
     color: #fed700;
 }
+.i {
+    color: #a4a4a4;
+    transition: 0.3s ease-in-out;
+}
+.i1:hover {
+    cursor: pointer;
+    color: #fed700;
+}
 .img {
     max-width: 100%;
     transition: all 0.3s ease-out 0s;
@@ -2422,7 +2430,7 @@ textarea:focus {
     line-height: 40px;
     text-align: center;
     text-transform: uppercase;
-    font-size: 11px;
+    font-size: 12px;
 }
 .product-review {
     border-bottom: 1px solid #ebebeb;
@@ -3791,7 +3799,8 @@ li.right-menu .cat-mega-menu-2 > li {
 .table-content table td.li-product-stock-status span.in-stock,
 .table-content table td.li-product-stock-status span.out-stock {
     color: #fed700;
-    font-size: 12px;
+    font-size: 16px;
+    font-weight: 700;
     text-transform: capitalize;
 }
 .table-content table td.li-product-stock-status span.out-stock {
@@ -4538,7 +4547,7 @@ thead {
     line-height: 30px;
     font-weight: 600;
     text-transform: capitalize;
-    font-family: Poppins;
+    /* font-family: Poppins; */
     padding-bottom: 15px;
     margin: 0;
 }

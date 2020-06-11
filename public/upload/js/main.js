@@ -87,6 +87,9 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
         if ($("#select_city").length) {
             $("#select_city").niceSelect();
         }
+        if ($(".flag").length) {
+            $(".flag").niceSelect();
+        }
     });
     /*----------------------------------------*/
     /* 05. Main Slider Activision

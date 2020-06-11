@@ -1,3 +1,9 @@
+@php
+if($product->promotions->first()){
+$percent = $product->promotions->first()->pivot->percent;
+$new_price = $product->price * (1 - $percent / 100);
+}
+@endphp
 <!-- content-wraper start -->
 <div class="content-wraper">
     <div class="container">
@@ -39,7 +45,13 @@
                             </ul>
                         </div>
                         <div class="price-box pt-20">
-                            <span class="new-price new-price-2">{{number_format($product->price)}}đ</span>
+                            @empty($product->promotions->first())
+                            <span class="new-price new-price-2">{{number_format($product->price)}} đ</span>
+                            @else
+                            <span class="new-price new-price-2">{{number_format($new_price)}} đ</span>&nbsp;
+                            <span class="old-price"
+                                style="text-decoration: line-through">{{number_format($product->price)}} đ</span>
+                            @endempty
                         </div>
                         <div class="product-desc">
                             <p>
@@ -55,19 +67,27 @@
                             </div>
                         </div>
                         <div class="single-add-to-cart">
+                            <span id="color-alert" class="text-danger"></span>
                             <form action="#" class="cart-quantity">
                                 <div class="quantity">
                                     <br>
                                     <label>Số lượng</label>
                                     <div class="cart-plus-minus">
                                         <input id="input_qty" type="number" class="cart-plus-minus-box" value="1"
-                                            type="text">
+                                            type="text"><br>
                                         {{-- <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div> --}}
                                     </div>
+
                                 </div>
+                                @empty($product->promotions->first())
                                 <button onclick="addCart({{$product->id}})" class=" add-to-cart" type="button"
                                     style="font-weight:bold">Thêm vào giỏ</button>
+                                @else
+                                <button onclick="addCart({{$product->id}},{{$percent}})" class=" add-to-cart"
+                                    type="button" style="font-weight:bold">Thêm vào giỏ</button>
+                                @endempty
+
                             </form>
                         </div>
                     </div>

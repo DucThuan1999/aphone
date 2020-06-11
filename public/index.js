@@ -64,27 +64,35 @@ function addWishList(id) {
     });
 }
 
-function addCart(id) {
-    let color = $("#select-colors option:selected").val()
-        ? $("#select-colors option:selected").val()
-        : null;
-    let qty = $("#input_qty").length ? parseInt($("#input_qty").val()) : 1;
-    // console.log(color,qty);
-    $.ajax({
-        method: "POST",
-        url: "/cart/add",
-        data: {
-            id,
-            qty,
-            color,
-        },
-    }).done(function (data) {
-        showSnackbar("Đã thêm sản phẩm vào giỏ hàng !!!");
-        let count_cart = document.getElementById("count_cart");
-        count_cart.innerText = parseInt(count_cart.textContent) + 1;
-        $("#minicart-ul").html(data);
-        // console.log(data);
-    });
+function addCart(id, discount = null) {
+    if ($("#select-colors").val() == "") {
+        $("#color-alert").html("Vui lòng chọn màu");
+    } else {
+        let color = $("#select-colors option:selected").val()
+            ? $("#select-colors option:selected").val()
+            : null;
+        let qty = $("#input_qty").length ? parseInt($("#input_qty").val()) : 1;
+
+        $.ajax({
+            method: "POST",
+            url: "/cart/add",
+            data: {
+                id,
+                qty,
+                color,
+                discount,
+            },
+        }).done(function (data) {
+            showSnackbar("Đã thêm sản phẩm vào giỏ hàng !!!");
+            let count_cart = document.getElementById("count_cart");
+            // count_cart.innerText =
+            //     parseInt(count_cart.textContent) + data.count;
+            count_cart.innerText = data.count;
+            console.log(data);
+            $("#minicart-ul").html(data.miniCart);
+            // console.log(data);
+        });
+    }
 }
 $("#eliminate-filter").click(function () {
     $(location).prop("href", "/products");
@@ -236,7 +244,6 @@ $("#input_qty").change(function () {
     let id = route[route.length - 1];
     let color = $("#select-colors option:selected").val();
 
-    console.log(id, color);
     $.ajax({
         method: "POST",
         url: "/ajax/qty/getqtybycolor",
@@ -267,15 +274,18 @@ $("#input_qty").change(function () {
 // });
 
 function validateCheckout() {
+    let over_qty = 0;
     let array_qty = $(':input[type="number"]').map(function () {
         if ($(this).val() != "1") {
-            $(this)
-                .parent()
-                .after('<span class="text-danger">Tối đa 1 sản phẩm</span>');
-        } else {
-            window.location.href("/cart");
+            over_qty++;
+            $("#alert-qty").html(
+                '<span class="text-danger">Tối đa 1 sản phẩm</span>'
+            );
         }
     });
+    if (over_qty == 0) {
+        window.location.href = "/checkout";
+    }
 }
 function changeCity() {
     let id = $("#select_city").val();
@@ -344,4 +354,221 @@ function handleAddressRadio() {
         $("#ship-box-info").slideToggle(1000);
     }
     $("#ship-box").prop("checked", false);
+}
+
+///////////////////////////////////////////////////
+function showproduct1(value) {
+    $.ajax({
+        type: "POST",
+        url: "/compare",
+        data: {
+            search: value,
+        },
+        success: function (data) {
+            var product = data[0];
+            var image = product.image;
+            $("#image1").html(
+                '<a href="products/' +
+                    product.product_id +
+                    '.html"><img src="' +
+                    image +
+                    '" alt="Product Image" height="300" width="300"></a>'
+            );
+            $("#cart1").fadeIn();
+            $("#name1").html(
+                '<a href="products/' +
+                    product.product_id +
+                    '.html">' +
+                    value +
+                    "</a>"
+            );
+            $("#content1").html(product.content);
+            let price = product.price.toLocaleString("it-IT", {
+                style: "currency",
+                currency: "VND",
+            });
+            $("#price1").html(price);
+            var color = "";
+            for (var i = 0; i < data.length - 1; i++) {
+                color += data[i].name + ", ";
+            }
+            color += data[data.length - 1].name;
+            $("#color1").html(color);
+            $("#tinhtrang1").html(tinhtrang(product.qty));
+            $("#cpu1").html(product.cpu);
+            $("#ram1").html(product.ram + " GB");
+            $("#memory1").html(product.memory);
+            $("#screensize1").html(product.screen_size + " inch");
+            $("#resolution1").html(product.resolution + " px");
+            $("#os1").html(product.os);
+            $("#os_version1").html(product.os_version);
+            $("#front_camera1").html(product.front_camera);
+            $("#back_camera1").html(product.back_camera);
+            $("#bluetooth1").html(product.bluetooth);
+            $("#battery1").html(product.battery + " mah");
+            $("#danhgia1").html(rate(product.rate));
+            // $('#sosanh').html(data);
+            // let cart1 =
+            //     '<button onclick="addCart(' +
+            //     product.product_id +
+            //     ')" class="ho-button ho-button-sm btn btn-warning" type="button"><span>THÊM VÀO GIỎ</span></button>';
+            // $("#cart1").html(cart1);
+        },
+        error: function () {
+            alert("fail");
+        },
+    });
+}
+$(document).ready(function () {
+    $("#search1").on("keyup keypress", function () {
+        let query = $(this).val();
+
+        if (query != "") {
+            let _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: "/ajax/suggestsearch1",
+                method: "POST",
+                data: { query: query, _token: _token },
+            }).success(function (data) {
+                $("#searchList1").fadeIn();
+                $("#searchList1").html(data);
+            });
+        }
+    });
+    $(document).on("click", ".li1", function () {
+        $("#search1").val($(this).text());
+        $("#searchList1").fadeOut();
+        let value = $(this).text();
+        showproduct1(value);
+    });
+});
+
+$("#search1").focusout(function () {
+    $("#searchList1").fadeOut();
+});
+
+$("#search1").focusin(function () {
+    $("#searchList1").fadeIn();
+});
+function showproduct2(value) {
+    $.ajax({
+        type: "POST",
+        url: "/compare",
+        data: {
+            search: value,
+        },
+        success: function (data) {
+            var product = data[0];
+            var image = product.image;
+            $("#image2").html(
+                '<a href="products/' +
+                    product.product_id +
+                    '.html"><img src="' +
+                    image +
+                    '" alt="Product Image" height="300" width="300"></a>'
+            );
+            $("#cart2").fadeIn();
+            $("#name2").html(
+                '<a href="products/' +
+                    product.product_id +
+                    '.html">' +
+                    value +
+                    "</a>"
+            );
+            $("#content2").html(product.content);
+            let price = product.price.toLocaleString("it-IT", {
+                style: "currency",
+                currency: "VND",
+            });
+            $("#price2").html(price);
+            var color = "";
+            for (var i = 0; i < data.length - 1; i++) {
+                color += data[i].name + ", ";
+            }
+            color += data[data.length - 1].name;
+            $("#color2").html(color);
+            $("#tinhtrang2").html(tinhtrang(product.qty));
+            $("#cpu2").html(product.cpu);
+            $("#ram2").html(product.ram + " GB");
+            $("#memory2").html(product.memory + " GB");
+            $("#screensize2").html(product.screen_size + " inch");
+            $("#resolution2").html(product.resolution + " px");
+            $("#os2").html(product.os);
+            $("#os_version2").html(product.os_version);
+            $("#front_camera2").html(product.front_camera);
+            $("#back_camera2").html(product.back_camera);
+            $("#bluetooth2").html(product.bluetooth);
+            $("#battery2").html(product.battery + " mah");
+            $("#danhgia2").html(rate(product.rate));
+            // $('#sosanh').html(data);
+            // let cart2 =
+            //     '<button onclick="addCart(' +
+            //     product.product_id +
+            //     ')" class="ho-button ho-button-sm btn btn-warning" type="button"><span>THÊM VÀO GIỎ</span></button>';
+            // $("#cart2").html(cart2);
+        },
+        error: function () {
+            alert("fail");
+        },
+    });
+}
+$(document).ready(function () {
+    $("#search2").on("keyup keypress", function () {
+        let query = $(this).val();
+
+        if (query != "") {
+            let _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: "/ajax/suggestsearch2",
+                method: "POST",
+                data: { query: query, _token: _token },
+            }).success(function (data) {
+                $("#searchList2").fadeIn();
+                $("#searchList2").html(data);
+            });
+        }
+    });
+    $(document).on("click", ".li2", function () {
+        $("#search2").val($(this).text());
+        $("#searchList2").fadeOut();
+        $value = $(this).text();
+        showproduct2($value);
+    });
+});
+$("#search2").focusout(function () {
+    $("#searchList2").fadeOut();
+});
+$("#search2").focusin(function () {
+    $("#searchList2").fadeIn();
+});
+
+function tinhtrang(qty) {
+    var s = "";
+    if (qty > 0) s += "Còn hàng";
+    else s += "Hết hàng";
+    return s;
+}
+function rate(rate) {
+    var html = "";
+    var num = parseInt(rate);
+    for (i = 0; i < num; i++) {
+        html += '<span><i class="fa fa-star"></i></span>';
+    }
+    for (i = 0; i < 5 - num; i++) {
+        html += '<span><i class="fa fa-star-o"></i></span>';
+    }
+    return html;
+}
+
+function handleCheckout() {
+    if (
+        !$('input[name="address"]').is(":checked") &&
+        !$("#ship-box").is(":checked")
+    ) {
+        alert("Vui lòng nhập địa chỉ");
+    } else {
+        $("#formCheckout").submit();
+    }
 }

@@ -89,39 +89,16 @@ class AjaxController extends Controller
                                                 </span>
                                             </p>
                                         </div>
-                                        <div class="product-variants">
-                                            <div class="produt-variants-size">
-                                                <label>Màu sắc </label>
-                                                <select class="nice-select">
-                                                    <option value="1" title="S" selected="selected">40x60cm</option>
-                                                    <option value="2" title="M">60x90cm</option>
-                                                    <option value="3" title="L">80x120cm</option>
-                                                </select>
-                                            </div>
-                                        </div>
                                         <div class="single-add-to-cart">
-                                            <form action="#" class="cart-quantity">
-                                                <div class="quantity">
-                                                    <label>Số lượng</label>
-                                                    <div class="cart-plus-minus">
-                                                        <input class="cart-plus-minus-box" value="1" type="text" />
-                                                        <div class="dec qtybutton">
-                                                            <i class="fa fa-angle-down"></i>
-                                                        </div>
-                                                        <div class="inc qtybutton">
-                                                            <i class="fa fa-angle-up"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button class="add-to-cart" type="submit">
+                                            <form action="#" class="cart-quantity" style="margin-top: 0px">
+                                                <button class="add-to-cart" type="button">
+                                                    Yêu thích
+                                                </button>
+                                                <button class="add-to-cart" type="button">
                                                     Thêm vào giỏ
                                                 </button>
                                             </form>
-                                        </div>
-                                        <div class="product-additional-info pt-25">
-                                            <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to
-                                                wishlist</a>                                            
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +124,7 @@ class AjaxController extends Controller
         $text = '<option selected disable value="">Chọn màu</option>';
 
         foreach ($colors as $color) {
-            $text .= '<option value="' . $color->id . '">' . $color->name . ' (' . $color->products->first()->pivot->quantity . ')</option>';
+            $text .= '<option value="' . $color->id . '">' . $color->name . ' (' . $color->products->where('id', $id)->first()->pivot->quantity . ')</option>';
         };
 
         return $text;
@@ -161,7 +138,7 @@ class AjaxController extends Controller
             $query->where('products.id', $idProduct);
         })->first();
 
-        $qty = $color->products->first()->pivot->quantity;
+        $qty = $color->products->where('id', $idProduct)->first()->pivot->quantity;
 
         return ['color' => $color, 'qty' => $qty];
     }
@@ -175,6 +152,37 @@ class AjaxController extends Controller
 
             foreach ($data as $row) {
                 $output .= '<li><a href="/products/' . $row->id . '">' . $row->name . '</a></li>';
+            }
+            $output .= '</ul>';
+
+            return $output;
+        }
+    }
+
+    function suggestSearch1(Request $request)
+    {
+        if ($request->get('query')) {
+            $query = $request->get('query');
+            $data = Products::where('name', 'LIKE', '%' . $query . '%')->get();
+            $output = '<ul class="dropdown-menu" style="display: block; padding: 20px; min-width:17rem" >';
+
+            foreach ($data as $row) {
+                $output .= '<li class="li1"><i class="i1">' . $row->name . '</i></li>';
+            }
+            $output .= '</ul>';
+
+            return $output;
+        }
+    }
+    function suggestSearch2(Request $request)
+    {
+        if ($request->get('query')) {
+            $query = $request->get('query');
+            $data = Products::where('name', 'LIKE', '%' . $query . '%')->get();
+            $output = '<ul class="dropdown-menu" style="display: block; padding: 20px; min-width:17rem" >';
+
+            foreach ($data as $row) {
+                $output .= '<li class="li2"><i class="i1">' . $row->name . '</i></li>';
             }
             $output .= '</ul>';
 

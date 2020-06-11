@@ -1,8 +1,10 @@
 <?php
     if(Auth::check()){
         $cart = Cart::instance(Auth::user())->content();
+        $countCart = Cart::instance(Auth::user())->count();
     }else{
         $cart = Cart::content();
+        $countCart = Cart::count();
     }
     
 ?>
@@ -60,7 +62,7 @@
                                 <span class="item-icon"></span>
                                 <span class="item-text">Giỏ hàng
                                     <span id="count_cart" class="cart-item-count">
-                                        {{count($cart)}}</span>
+                                        {{$countCart}}</span>
                                 </span>
                             </div>
                             <span></span>

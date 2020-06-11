@@ -8,7 +8,7 @@
 <!--Checkout Area Strat-->
 <div class="checkout-area pt-60 pb-30">
     <div class="container">
-        <form action="checkout/bills/add" method="POST">
+        <form id="formCheckout" action="checkout/bills/add" method="POST">
             @csrf
             <div class="row">
                 <div class="col-lg-6 col-12">
@@ -141,7 +141,7 @@
                                         <td><span class="amount">{{Cart::priceTotal(0)}} đ</span></td>
                                     </tr>
                                     <tr class="cart-subtotal">
-                                        <th>Khuyến mãi</th>
+                                        <th>Giảm giá</th>
                                         <td><span class="amount">{{Cart::discount(0)}} đ</span></td>
                                     </tr>
                                     <tr class="order-total">
@@ -185,7 +185,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="card">
+                                    {{-- <div class="card">
                                         <div class="card-header" id="#payment-2">
                                             <h5 class="panel-title">
                                                 <a class="collapsed" data-toggle="collapse" data-target="#collapseTwo"
@@ -208,7 +208,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     {{-- <div class="card">
                                         <div class="card-header" id="#payment-2">
@@ -227,7 +227,7 @@
                                     </div> --}}
                                 </div>
                                 <div class="order-button-payment">
-                                    <input value="Đặt hàng" type="submit">
+                                    <input value="Đặt hàng" onclick="handleCheckout()" type="button">
                                 </div>
                             </div>
                         </div>

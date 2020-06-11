@@ -22,7 +22,7 @@
                                     <th class="li-product-quantity">Màu sắc</th>
                                     <th class="li-product-price">Đơn giá</th>
                                     <th class="li-product-quantity">Số lượng</th>
-                                    <th class="li-product-subtotal">Tổng tiền</th>
+                                    <th class="li-product-subtotal">Thành tiền</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,7 +39,8 @@
                                         {{-- <label>Số lượng</label> --}}
                                         <div class="cart-plus-minus">
                                             <div class="produt-variants-size">
-                                                <select id="select_colors_{{$itemCart->rowId}}" class="nice-select">
+                                                <select id="select_colors_{{$itemCart->rowId}}"
+                                                    class="nice-select flag">
                                                     <option disabled selected>Màu</option>
                                                     @foreach ($itemCart->options->colors as $color)
                                                     @if($color->id ==
@@ -68,6 +69,7 @@
                                                 onchange="updateQtyItemCart('{{$itemCart->rowId}}',this.value)"
                                                 class="cart-plus-minus-box" value="{{$itemCart->qty}}">
                                         </div>
+                                        <div id="alert-qty"></div>
                                     </td>
                                     <td class="product-subtotal"><span class="amount"
                                             id="subtotal_{{$itemCart->rowId}}">{{number_format($itemCart->subtotal)}}

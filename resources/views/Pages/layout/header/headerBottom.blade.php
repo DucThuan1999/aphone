@@ -123,7 +123,7 @@
                                 <a href="/compare">So sánh</a>
                             </li>
                             <li>
-                                <a href="/blogs">Bài viết</a>
+                                <a href="/promotions">Khuyến mãi</a>
                                 {{-- <ul class="hb-dropdown">
                                     <li class="sub-dropdown-holder">
                                         <a href="blog-left-sidebar.html">Blog Grid View</a>

@@ -7,6 +7,7 @@ use App\Products;
 use App\Categories;
 use App\Suppliers;
 use App\Images;
+use App\Promotions;
 use App\WishList;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,14 +19,24 @@ class HomePageController extends Controller
         $products = Products::all();
         $categories = Categories::all();
         $suppliers = Suppliers::all();
+        $promotions = Promotions::all()->random();
+        $twoPromotions = Promotions::all()->random(2);
+        $promotion_id = $promotions->id;
 
         $randomProductsArea = Products::all()->random(6);
+
+        $productsPromotion = Products::with('promotions')->whereHas('promotions', function ($query) {
+            $query->whereNotNull('promotions.id');
+        })->get();
 
         view()->share('products', $products);
         view()->share('categories', $categories);
         view()->share('suppliers', $suppliers);
 
         view()->share('randomProductsArea', $randomProductsArea);
+        view()->share('promotions', $promotions);
+        view()->share('twoPromotions', $twoPromotions);
+        view()->share('productsPromotion', $productsPromotion);
     }
 
     function index()

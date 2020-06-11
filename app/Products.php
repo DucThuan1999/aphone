@@ -9,6 +9,10 @@ class Products extends Model implements Buyable
 {
     protected $table = "products";
 
+    protected $fillable = [
+        'qty'
+    ];
+
     public function getBuyableIdentifier($options = null)
     {
         return $this->id;
@@ -55,7 +59,12 @@ class Products extends Model implements Buyable
 
     function colors()
     {
-        return $this->belongsToMany('App\Colors', 'colors_products', 'product_id', 'color_id');
+        return $this->belongsToMany('App\Colors', 'colors_products', 'product_id', 'color_id')->withPivot('quantity');
+    }
+
+    function promotions()
+    {
+        return $this->belongsToMany('App\Promotions', 'promotions_products', 'product_id', 'promotion_id')->withPivot(['percent', 'type_discount', 'price_discount']);
     }
 
     function wishlist()

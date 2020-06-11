@@ -24,6 +24,7 @@ class CartController extends Controller
     function addItemCart(Request $request)
     {
         $product_id = $request->id;
+        $discount = $request->discount == null ? 0 : $request->discount;
         $product = Products::find($product_id);
         $colors = Colors::with('products')->whereHas('products', function ($query) use ($product_id) {
             $query->where('products.id', $product_id);
@@ -31,11 +32,19 @@ class CartController extends Controller
 
         if (Auth::check()) {
             $user = Auth::user();
-            Cart::instance($user)->add($product, (int) $request->qty, ['colors' => $colors, 'colorSelected' => $request->color, 'img' => $product->image]);
+            $cart = Cart::instance($user)->add($product, (int) $request->qty, [
+                'colors' => $colors,
+                'colorSelected' => $request->color,
+                'img' => $product->image
+            ]);
+            $rowId = $cart->rowId;
+            Cart::instance($user)->setDiscount($rowId, $discount);
+            // return $this->getLiMiniCart(Cart::instance($user)->content());
+            return ['miniCart' => $this->getLiMiniCart(Cart::instance($user)->content()), 'count' => Cart::instance($user)->count()];
         } else {
-            Cart::add($product, (int) $request->qty, ['colors' => $colors, 'colorSelected' => $request->color, 'img' => $product->image]);
+            $cart = Cart::add($product, (int) $request->qty, ['colors' => $colors, 'colorSelected' => $request->color, 'img' => $product->image])->discount((int) $discount);
+            return ['miniCart' => $this->getLiMiniCart(Cart::content()), 'count' => Cart::count()];
         }
-        return $this->getLiMiniCart(Cart::content());
     }
 
     function updateItemCart(Request $request)
