@@ -120,85 +120,85 @@
                                 </ul>  --}}
                             </li>
                             <li>
-                                <a href="/compare">So sánh</a>
-                            </li>
-                            <li>
                                 <a href="/promotions">Khuyến mãi</a>
                                 {{-- <ul class="hb-dropdown">
-                                    <li class="sub-dropdown-holder">
-                                        <a href="blog-left-sidebar.html">Blog Grid View</a>
-                                        <ul class="hb-dropdown hb-sub-dropdown">
-                                            <li>
-                                                <a href="blog-2-column.html">Blog 2
-                                                    Column</a>
+                                            <li class="sub-dropdown-holder">
+                                                <a href="blog-left-sidebar.html">Blog Grid View</a>
+                                                <ul class="hb-dropdown hb-sub-dropdown">
+                                                    <li>
+                                                        <a href="blog-2-column.html">Blog 2
+                                                            Column</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="blog-3-column.html">Blog 3
+                                                            Column</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="blog-left-sidebar.html">Grid Left
+                                                            Sidebar</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="blog-right-sidebar.html">Grid Right
+                                                            Sidebar</a>
+                                                    </li>
+                                                </ul>
                                             </li>
-                                            <li>
-                                                <a href="blog-3-column.html">Blog 3
-                                                    Column</a>
+                                            <li class="sub-dropdown-holder">
+                                                <a href="blog-list-left-sidebar.html">Blog List View</a>
+                                                <ul class="hb-dropdown hb-sub-dropdown">
+                                                    <li>
+                                                        <a href="blog-list.html">Blog
+                                                            List</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="blog-list-left-sidebar.html">List Left
+                                                            Sidebar</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="blog-list-right-sidebar.html">List Right
+                                                            Sidebar</a>
+                                                    </li>
+                                                </ul>
                                             </li>
-                                            <li>
-                                                <a href="blog-left-sidebar.html">Grid Left
-                                                    Sidebar</a>
+                                            <li class="sub-dropdown-holder">
+                                                <a href="blog-details-left-sidebar.html">Blog Details</a>
+                                                <ul class="hb-dropdown hb-sub-dropdown">
+                                                    <li>
+                                                        <a href="blog-details-left-sidebar.html">Left
+                                                            Sidebar</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="blog-details-right-sidebar.html">Right
+                                                            Sidebar</a>
+                                                    </li>
+                                                </ul>
                                             </li>
-                                            <li>
-                                                <a href="blog-right-sidebar.html">Grid Right
-                                                    Sidebar</a>
+                                            <li class="sub-dropdown-holder">
+                                                <a href="blog-gallery-format.html">Blog Format</a>
+                                                <ul class="hb-dropdown hb-sub-dropdown">
+                                                    <li>
+                                                        <a href="blog-audio-format.html">Blog Audio
+                                                            Format</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="blog-video-format.html">Blog Video
+                                                            Format</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="blog-gallery-format.html">Blog
+                                                            Gallery
+                                                            Format</a>
+                                                    </li>
+                                                </ul>
                                             </li>
-                                        </ul>
-                                    </li>
-                                    <li class="sub-dropdown-holder">
-                                        <a href="blog-list-left-sidebar.html">Blog List View</a>
-                                        <ul class="hb-dropdown hb-sub-dropdown">
-                                            <li>
-                                                <a href="blog-list.html">Blog
-                                                    List</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-list-left-sidebar.html">List Left
-                                                    Sidebar</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-list-right-sidebar.html">List Right
-                                                    Sidebar</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="sub-dropdown-holder">
-                                        <a href="blog-details-left-sidebar.html">Blog Details</a>
-                                        <ul class="hb-dropdown hb-sub-dropdown">
-                                            <li>
-                                                <a href="blog-details-left-sidebar.html">Left
-                                                    Sidebar</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-details-right-sidebar.html">Right
-                                                    Sidebar</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="sub-dropdown-holder">
-                                        <a href="blog-gallery-format.html">Blog Format</a>
-                                        <ul class="hb-dropdown hb-sub-dropdown">
-                                            <li>
-                                                <a href="blog-audio-format.html">Blog Audio
-                                                    Format</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-video-format.html">Blog Video
-                                                    Format</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-gallery-format.html">Blog
-                                                    Gallery
-                                                    Format</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul> --}}
+                                        </ul> --}}
                             </li>
                             <li>
-                                <a href="/contact">Liên hệ</a>
+                                <a href="/compare">So sánh</a>
                             </li>
+                            {{-- <li>
+                                <a href="/contact">Liên hệ</a>
+                            </li> --}}
                             <!-- Begin Header Bottom Menu Information Area -->
                             <li class="hb-info f-right p-0 d-sm-none d-lg-block">
                                 <span>273 An Dương Vương, Phường 3, Quận 5, Hồ Chí Minh</span>

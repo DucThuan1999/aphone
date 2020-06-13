@@ -138,15 +138,18 @@
                                 <tfoot>
                                     <tr class="cart-subtotal">
                                         <th>Tổng tiền</th>
-                                        <td><span class="amount">{{Cart::priceTotal(0)}} đ</span></td>
+                                        <td><span id="span_price_total" class="amount">{{Cart::priceTotal(0)}} đ</span>
+                                        </td>
                                     </tr>
                                     <tr class="cart-subtotal">
                                         <th>Giảm giá</th>
-                                        <td><span class="amount">{{Cart::discount(0)}} đ</span></td>
+                                        <td><span id="span_discount_price" class="amount">{{Cart::discount(0)}} đ</span>
+                                        </td>
                                     </tr>
                                     <tr class="order-total">
                                         <th>Thành tiền</th>
-                                        <td><strong><span class="amount">{{Cart::total(0)}} đ</span></strong></td>
+                                        <td><strong><span id="span_total" class="amount">{{Cart::total(0)}}
+                                                    đ</span></strong></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -185,7 +188,7 @@
 
                                         </div>
                                     </div>
-                                    {{-- <div class="card">
+                                    <div class="card">
                                         <div class="card-header" id="#payment-2">
                                             <h5 class="panel-title">
                                                 <a class="collapsed" data-toggle="collapse" data-target="#collapseTwo"
@@ -198,17 +201,20 @@
                                             <div class="card-body">
                                                 <div class="checkout-form-list">
                                                     <div class="row">
-                                                        <div class="col-9"><input class="wide" type="text">
+                                                        <div class="col-9"><input id="input-coupon" class="wide"
+                                                                type="text">
                                                         </div>
-                                                        <div class="col-3"><button type="button"
+                                                        <div class="col-3"><button onclick="checkCoupon()"
+                                                                id="button-coupon" type="button"
                                                                 class="btn btn-primary">Áp
                                                                 dụng</button></div>
+                                                        <input name="percent" type="hidden" value="0">
                                                     </div>
 
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     {{-- <div class="card">
                                         <div class="card-header" id="#payment-2">

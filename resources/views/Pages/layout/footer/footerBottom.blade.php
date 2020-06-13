@@ -32,18 +32,12 @@
                 </div>
                 <!-- Footer Links Area End Here -->
                 <!-- Begin Footer Payment Area -->
-                <div class="payment text-center">
+                <div class="payment text-center pt-30 pb-50">
                     <a href="#">
                         <img src="{{URL::asset('upload/images/payment/1.png')}}" alt="" />
                     </a>
                 </div>
                 <!-- Footer Payment Area End Here -->
-                <!-- Begin Copyright Area -->
-                <div class="copyright text-center pt-30 pb-50">
-                    <span><a href="https://www.templatespoint.net" target="_blank">Templates
-                            Point</a></span>
-                </div>
-                <!-- Copyright Area End Here -->
             </div>
         </div>
     </div>

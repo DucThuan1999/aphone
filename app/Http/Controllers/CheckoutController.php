@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Address;
 use App\Bills;
 use App\Colors_products;
+use App\Coupon;
 use App\Info_bills;
 use App\Mail\Deposit;
 use App\Mail\ConfirmOrder;
@@ -43,6 +44,7 @@ class CheckoutController extends Controller
     {
         $user = Auth::user();
         $cart = Cart::instance($user)->content();
+        Cart::instance($user)->setGlobalDiscount($request->percent);
         $address = new Address();
         $bill = new Bills();
 
@@ -100,6 +102,22 @@ class CheckoutController extends Controller
                 ->where('color_id', $color_id)->update(['quantity' => $old_color_qty - 1]);
 
             Products::find($product_id)->update(['qty' => $old_product_qty - 1]);
+        }
+    }
+
+    function checkCoupon(Request $request)
+    {
+        $user = Auth::user();
+        $coupon_code = $request->coupon;
+        $coupon = Coupon::where('code', $coupon_code)->first();
+        if ($coupon && $coupon->status !== 2 && Auth::check()) {
+            $total_old = (float) str_replace(',', '', Cart::instance($user)->total(0));
+            $discount_price = $total_old * $coupon->percent / 100;
+            $total_new = $total_old - $discount_price;
+
+            return ['status' => true, 'percent' => $coupon->percent, 'total' => number_format($total_new), 'discount_price' => number_format($discount_price)];
+        } else {
+            return ["status" => false];
         }
     }
 }

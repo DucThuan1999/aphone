@@ -22,6 +22,7 @@
                 <div class="row">
                     <div class="product-active owl-carousel" id="products-area">
                         @foreach ($products as $product)
+
                         <div class="col-lg-12">
                             <!-- single-product-wrap start -->
                             <div class="single-product-wrap">
@@ -74,7 +75,8 @@
                                             giỏ</a></li> --}}
                                             {{-- <li><a onclick="addWishList({{$product->id}}) "
                                             class="links-details"><i class="fa fa-heart-o"></i></a></li> --}}
-                                            <li><a onclick="addWishList({{$product->id}})" class="links-details"><i
+                                            <li><a @if(!Auth::check()) href="/login" @endif
+                                                    onclick="addWishList({{$product->id}})" class="links-details"><i
                                                         class="fa fa-heart-o"></i></a></li>
                                             <li><a onclick="quickviewModal({{$product->id}})" data-toggle="modal"
                                                     class="quick-view"><i class="fa fa-eye"></i></a>

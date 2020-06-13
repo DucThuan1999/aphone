@@ -5571,9 +5571,9 @@ input[type="radio"][name="color"]:checked:after {
 .feedback-btn a {
     background: #242424;
     color: #fff !important;
-    width: 80px;
+    width: 93px;
     font-size: 14px;
-    height: 30px;
+    height: 38px;
     line-height: 30px;
     text-align: center;
     left: 110px;

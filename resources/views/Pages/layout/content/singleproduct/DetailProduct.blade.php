@@ -4,6 +4,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="li-product-tab">
+                    @if (session('thongbao'))
+                    <div class="alert alert-success">
+                        {{session('thongbao')}}<br>
+                    </div>
+                    @endif
                     <ul class="nav li-product-menu">
                         <li><a class="active" data-toggle="tab" href="#description"><span>Mô tả</span></a></li>
                         <li><a data-toggle="tab" href="#product-details"><span>Thông tin sản phẩm</span></a></li>
@@ -160,45 +165,37 @@
                 <div class="product-reviews">
                     <div class="product-details-comment-block">
                         <div class="comment-review">
-                            <span>Grade</span>
+                            <span>Nhận xét </span>
                             <ul class="rating">
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                @for($i=0;$i< 5;$i++) @if($i<$product->rate)
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    @else
+                                    <li class="no-star"><i class="fa fa-star-o"></i>
+                                    </li>
+                                    @endif
+                                    @endfor
                             </ul>
                         </div>
-                        <div class="comment-author-infos pt-25">
-                            <span>HTML 5</span>
-                            <em>01-12-18</em>
-                        </div>
-                        <div class="comment-details">
-                            <h4 class="title-block">Demo</h4>
-                            <p>Plaza</p>
-                        </div>
                         <div class="review-btn">
-                            <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your
-                                Review!</a>
+                            <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">VIẾT ĐÁNH
+                                GIÁ</a>
                         </div>
                         <!-- Begin Quick View | Modal Area -->
                         <div class="modal fade modal-wrapper" id="mymodal">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
-                                        <h3 class="review-page-title">Write Your Review</h3>
+                                        <h3 class="review-page-title">Viết đánh giá của bạn</h3>
                                         <div class="modal-inner-area row">
                                             <div class="col-lg-6">
                                                 <div class="li-review-product">
-                                                    <img src="images/product/large-size/3.jpg" alt="Li's Product">
+                                                    <img src="{{$product->image}}" alt="Li's Product" height="200"
+                                                        width="200">
                                                     <div class="li-review-product-desc">
-                                                        <p class="li-product-name">Today is a good day Framed poster</p>
+                                                        <h6 class="li-product-name" style="font-size: 24px">
+                                                            {{$product->name}}</h6>
                                                         <p>
-                                                            <span>Beach Camera Exclusive Bundle - Includes Two Samsung
-                                                                Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire
-                                                                Room With Exquisite Sound via Ring Radiator Technology.
-                                                                Stream And Control R3 Speakers Wirelessly With Your
-                                                                Smartphone. Sophisticated, Modern Design </span>
+                                                            <span>{{$product->content}}</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -208,12 +205,14 @@
                                                     <!-- Begin Feedback Area -->
                                                     <div class="feedback-area">
                                                         <div class="feedback">
-                                                            <h3 class="feedback-title">Our Feedback</h3>
-                                                            <form action="#">
+
+                                                            <h3 class="feedback-title">Đánh giá sản phẩm</h3>
+                                                            <form action="" method="post">
+                                                                @csrf
                                                                 <p class="your-opinion">
-                                                                    <label>Your Rating</label>
+                                                                    <label>Đánh giá</label>
                                                                     <span>
-                                                                        <select class="star-rating">
+                                                                        <select name="rate" class="star-rating">
                                                                             <option value="1">1</option>
                                                                             <option value="2">2</option>
                                                                             <option value="3">3</option>
@@ -223,12 +222,12 @@
                                                                     </span>
                                                                 </p>
                                                                 <p class="feedback-form">
-                                                                    <label for="feedback">Your Review</label>
+                                                                    <label for="feedback">Góp ý của bạn</label>
                                                                     <textarea id="feedback" name="comment" cols="45"
                                                                         rows="8" aria-required="true"></textarea>
                                                                 </p>
                                                                 <div class="feedback-input">
-                                                                    <p class="feedback-form-author">
+                                                                    <!-- <p class="feedback-form-author">
                                                                         <label for="author">Name<span
                                                                                 class="required">*</span>
                                                                         </label>
@@ -243,11 +242,15 @@
                                                                             size="30" aria-required="true" type="text">
                                                                         <span class="required"><sub>*</sub> Required
                                                                             fields</span>
-                                                                    </p>
+                                                                    </p> -->
                                                                     <div class="feedback-btn pb-15">
-                                                                        <a href="#" class="close" data-dismiss="modal"
-                                                                            aria-label="Close">Close</a>
-                                                                        <a href="#">Submit</a>
+                                                                        <button class="close btn btn-success"
+                                                                            data-dismiss="modal"
+                                                                            aria-label="Close">Thoát</button>
+                                                                        <button type="submit" class="btn btn-warning"
+                                                                            id="mc-submit">
+                                                                            Xác nhận
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </form>

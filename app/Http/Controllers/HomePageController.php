@@ -9,6 +9,7 @@ use App\Suppliers;
 use App\Images;
 use App\Promotions;
 use App\WishList;
+use App\Followers;
 use Illuminate\Support\Facades\Auth;
 
 class HomePageController extends Controller
@@ -49,6 +50,14 @@ class HomePageController extends Controller
             view()->share('wishlist', $wishlist);
         }
         return view('Pages.Home');
+    }
+
+    function subscribe(Request $request)
+    {
+        $followers = new Followers();
+        $followers->email = $request->txtEmail;
+        $followers->save();
+        return redirect('/')->with('thongbao', 'Thêm thành công');
     }
 
     function getProductById($id)

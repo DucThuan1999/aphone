@@ -7,14 +7,8 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-logo">
                         <img src="{{URL::asset('upload/images/menu/logo/1.jpg')}}" alt="Footer Logo" />
-                        <p class="info">
-                            Chúng tôi là một nhóm các nhà
-                            thiết kế và nhà phát triển tạo
-                            ra mẫu HTML & Thương mại điện
-                            tử chất lượng cao.
-                        </p>
                     </div>
-                    <ul class="des">
+                    <ul class="des mt-30">
                         <li>
                             <span>Địa chỉ: </span>
                             273 An Duong Vương, phường 12, quận 5, TPHCM
@@ -66,56 +60,22 @@
                 <!-- Footer Block Area End Here -->
                 <!-- Begin Footer Block Area -->
                 <div class="col-lg-4">
-                    <div class="footer-block">
-                        <h3 class="footer-block-title">
-                            Theo dõi chúng tôi
-                        </h3>
-                        <ul class="social-link">
-                            <li class="twitter">
-                                <a href="https://twitter.com/" data-toggle="tooltip" target="_blank" title="Twitter">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li class="rss">
-                                <a href="https://rss.com/" data-toggle="tooltip" target="_blank" title="RSS">
-                                    <i class="fa fa-rss"></i>
-                                </a>
-                            </li>
-                            <li class="google-plus">
-                                <a href="https://www.plus.google.com/discover" data-toggle="tooltip" target="_blank"
-                                    title="Google +">
-                                    <i class="fa fa-google-plus"></i>
-                                </a>
-                            </li>
-                            <li class="facebook">
-                                <a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank"
-                                    title="Facebook">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li class="youtube">
-                                <a href="https://www.youtube.com/" data-toggle="tooltip" target="_blank"
-                                    title="Youtube">
-                                    <i class="fa fa-youtube"></i>
-                                </a>
-                            </li>
-                            <li class="instagram">
-                                <a href="https://www.instagram.com/" data-toggle="tooltip" target="_blank"
-                                    title="Instagram">
-                                    <i class="fa fa-instagram"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+
                     <!-- Begin Footer Newsletter Area -->
                     <div class="footer-newsletter">
+                        @if (session('thongbao'))
+                        <div class="alert alert-success">
+                            {{session('thongbao')}}<br>
+                        </div>
+                        @endif
                         <h4>Đăng ký để nhận tin sớm nhất</h4>
-                        <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
-                            class="footer-subscribe-form validate" target="_blank" novalidate>
+                        <form action="/thien" method="post">
+                            @csrf
                             <div id="mc_embed_signup_scroll">
                                 <div id="mc-form" class="mc-form subscribe-form form-group">
-                                    <input id="mc-email" type="email" autocomplete="off" placeholder="Nhập email" />
-                                    <button class="btn" id="mc-submit">
+                                    <input name="txtEmail" id="mc-email" type="email" autocomplete="off"
+                                        placeholder="Nhập email" />
+                                    <button type="submit" class="btn">
                                         Theo dõi
                                     </button>
                                 </div>

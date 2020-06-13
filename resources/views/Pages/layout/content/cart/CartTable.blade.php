@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-12">
                 @if($cart->count() != 0)
-                <form action="#">
+                <form>
                     <div class="table-content table-responsive">
                         <table class="table">
                             <thead>
@@ -19,7 +19,7 @@
                                     <th class="li-product-remove">Xoá</th>
                                     <th class="li-product-thumbnail">Ảnh</th>
                                     <th class="cart-product-name">Tên sản phẩm</th>
-                                    <th class="li-product-quantity">Màu sắc</th>
+                                    <th class="li-product-quantity" style="width: 170px">Màu sắc</th>
                                     <th class="li-product-price">Đơn giá</th>
                                     <th class="li-product-quantity">Số lượng</th>
                                     <th class="li-product-subtotal">Thành tiền</th>
@@ -88,8 +88,9 @@
                                     <li>Tổng tiền <span>{{Cart::priceTotal(0)}} đ</span></li>
                                     <li>Thành tiền <span>{{Cart::total(0)}} đ</span></li>
                                 </ul>
-                                <a onclick="validateCheckout()" href="javascript:;">Tiến hành thanh
-                                    toán</a>
+                                <button type="button" onclick="validateCheckout()" class="btn btn-primary mt-20">Tiến
+                                    hành thanh
+                                    toán</button>
                             </div>
                         </div>
                     </div>

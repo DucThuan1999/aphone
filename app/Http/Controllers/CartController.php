@@ -40,10 +40,18 @@ class CartController extends Controller
             $rowId = $cart->rowId;
             Cart::instance($user)->setDiscount($rowId, $discount);
             // return $this->getLiMiniCart(Cart::instance($user)->content());
-            return ['miniCart' => $this->getLiMiniCart(Cart::instance($user)->content()), 'count' => Cart::instance($user)->count()];
+            return [
+                'miniCart' => $this->getLiMiniCart(Cart::instance($user)->content()),
+                'count' => Cart::instance($user)->count(),
+                'totalMiniCart' => Cart::instance($user)->total(0)
+            ];
         } else {
             $cart = Cart::add($product, (int) $request->qty, ['colors' => $colors, 'colorSelected' => $request->color, 'img' => $product->image])->discount((int) $discount);
-            return ['miniCart' => $this->getLiMiniCart(Cart::content()), 'count' => Cart::count()];
+            return [
+                'miniCart' => $this->getLiMiniCart(Cart::content()),
+                'count' => Cart::count(),
+                'totalMiniCart' => Cart::total(0)
+            ];
         }
     }
 
@@ -92,7 +100,9 @@ class CartController extends Controller
                             <li>Tổng tiền <span>' . Cart::priceTotal(0) . ' đ</span></li>
                              <li>Thành tiền <span>' . Cart::total(0) . ' đ</span></li>
                         </ul>
-                        <a href="/checkout">Tiến hành thanh toán</a>
+                        <button type="button" onclick="validateCheckout()" class="btn btn-primary mt-20">Tiến
+                        hành thanh
+                        toán</button>
                     </div>';
         return $text;
     }
@@ -102,7 +112,7 @@ class CartController extends Controller
         $text = '';
         foreach ($cart as $itemCart) {
             $text .= '<li class="products_row_' . $itemCart->rowId . '">
-            <a href="single-product.html" class="minicart-product-image">
+            <a href="products/' . $itemCart->id . '" class="minicart-product-image">
                 <img src="' . $itemCart->options->img . '" alt="cart products" />
             </a>
             <div class="minicart-product-details">
@@ -111,7 +121,7 @@ class CartController extends Controller
                 </h6>
                 <span>' . number_format($itemCart->price) . ' đ x ' . $itemCart->qty . '</span>
             </div>
-            <button onclick="removeCart(' . $itemCart->rowId . ')" class="close">
+            <button onclick="removeCart(`' . $itemCart->rowId . '`)" class="close">
                 <i class="fa fa-close"></i>
             </button>
         </li>';

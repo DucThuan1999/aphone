@@ -28,7 +28,7 @@ class LoginPageController extends Controller
             ]
         );
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'role' => '2'])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'role' => '2', 'status' => '1'])) {
             return redirect('/');
         } else {
             return redirect('/login')->with('loginAlert', 'Vui lòng kiểm tra email / sđt hoặc mật khẩu !!!');

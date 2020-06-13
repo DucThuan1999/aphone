@@ -24,7 +24,6 @@
             <p>Sắp xếp theo:</p>
             <select id="select-filter" style="width:300px;height:30px">
                 <option selected disabled>Vui lòng chọn sắp xếp</option>
-                <option <?php echo $querySort == 'trending' ? "selected" : "" ?> value="trending">Độ phổ biến</option>
                 <option <?php echo $querySort == 'rating' ? "selected" : "" ?> value="rating">Đánh giá</option>
                 <option <?php echo $querySort == 'asc' ? "selected" : "" ?> value="asc">Giá từ thấp tới cao</option>
                 <option <?php echo $querySort == 'desc' ? "selected" : "" ?> value="desc">Giá từ cao xuống thấp</option>

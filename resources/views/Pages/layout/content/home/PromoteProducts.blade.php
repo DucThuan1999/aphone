@@ -12,10 +12,22 @@
                 <div class="row">
                     <div class="product-active owl-carousel">
                         @foreach ($productsPromotion as $product)
-                        <?php 
-                            $percent = $product->promotions->first()->pivot->percent;
-                            $new_price = $product->price * (1 - $percent / 100);
-                        ?>
+                        @php
+                        switch ($product->promotions->first()->pivot->type_discount) {
+                        case 'percent':
+                        $percent = $product->promotions->first()->pivot->percent;
+                        $new_price = $product->price * (1 - $percent / 100);
+                        break;
+                        case 'price':
+                        $price_discount = $product->promotions->first()->pivot->price_discount;
+                        $new_price = $product->price - $price_discount;
+                        break;
+
+                        default:
+                        break;
+                        }
+
+                        @endphp
                         <div class="col-lg-12">
                             <!-- single-product-wrap start -->
                             <div class="single-product-wrap">

@@ -90,6 +90,9 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
         if ($(".flag").length) {
             $(".flag").niceSelect();
         }
+        if ($("#select-filter").length) {
+            $("#select-filter").niceSelect();
+        }
     });
     /*----------------------------------------*/
     /* 05. Main Slider Activision

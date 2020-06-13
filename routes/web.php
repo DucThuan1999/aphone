@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::group(['prefix' => '/'], function () {
     Route::get('/', 'HomePageController@index');
+    Route::post('/thien', 'HomePageController@subscribe');
     // Route::get('/home', 'HomePageController@index')->name('home')->middleware('verified');
 });
 
@@ -29,6 +30,7 @@ Route::group(['prefix' => '/'], function () {
 Route::group(['prefix' => 'products'], function () {
     Route::get('/', 'ProductsPageController@index')->name('products.index');
     Route::get('{id}', 'HomePageController@getProductById');
+    Route::post('{id}', 'CommentController@comment');
     // Route::get('/category/{id}', 'ProductsPageController@getProductsByIdCategory');
 });
 
@@ -87,6 +89,7 @@ Route::group(['prefix' => 'checkout'], function () {
     Route::get("/", 'CheckoutController@index');
     Route::post("/bills/add", 'CheckoutController@addBills');
     Route::get("/success", 'CheckoutController@success');
+    Route::post("/coupon/check", 'CheckoutController@checkCoupon');
 });
 
 Route::group(['prefix' => 'promotions'], function () {

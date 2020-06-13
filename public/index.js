@@ -88,7 +88,7 @@ function addCart(id, discount = null) {
             // count_cart.innerText =
             //     parseInt(count_cart.textContent) + data.count;
             count_cart.innerText = data.count;
-            console.log(data);
+            $("#showTotalPriceMiniCart").html(data.totalMiniCart + " đ");
             $("#minicart-ul").html(data.miniCart);
             // console.log(data);
         });
@@ -570,5 +570,33 @@ function handleCheckout() {
         alert("Vui lòng nhập địa chỉ");
     } else {
         $("#formCheckout").submit();
+    }
+}
+
+function checkCoupon() {
+    let coupon = $("#input-coupon").val();
+    if (coupon.length > 0) {
+        $.ajax({
+            method: "POST",
+            url: "checkout/coupon/check",
+            data: {
+                coupon,
+            },
+        }).then(function (data) {
+            if (data.status === true) {
+                $("#span_discount_price").html(
+                    data.discount_price + " đ (" + data.percent + "%)"
+                );
+                $("#span_total").html(data.total + " đ");
+                $("#input-coupon").prop("disabled", "true");
+                $("#button-coupon").prop("disabled", "true");
+                $('input[name="percent"]').val(data.percent);
+                showSnackbar("Đã sử dụng mã");
+            } else {
+                showSnackbar("Mã không tồn tại hoặc đã sử dụng");
+            }
+        });
+    } else {
+        alert("Nhập mã giảm giá");
     }
 }
