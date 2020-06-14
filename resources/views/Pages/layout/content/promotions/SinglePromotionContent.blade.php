@@ -56,7 +56,8 @@
                                                                         <th class="li-product-remove">STT</th>
                                                                         <th class="li-product-thumbnail">Ảnh</th>
                                                                         <th class="cart-product-name">Tên Sản Phẩm</th>
-                                                                        @if($promotion->type_discount === "percent")
+                                                                        @if($promotion->promotions_products->type_discount
+                                                                        == "percent")
                                                                         <th class="li-product-remove">Phần trăm</th>
                                                                         @endif
                                                                         <th class="li-product-remove">Tiền giảm</th>
@@ -68,7 +69,7 @@
                                                                 <tbody>
                                                                     @foreach ($productsPromotion as $index=>$product)
                                                                     <?php 
-                                                                     if($promotion->type_discount === "percent"){
+                                                                     if($promotion->promotions_products->type_discount === "percent"){
                                                                         $percent = $product->promotions->first()->pivot->percent;
                                                                         $price_discount = $product->price * $percent /100;
                                                                      }else {
@@ -88,7 +89,8 @@
                                                                         <td class="li-product-name"><a
                                                                                 href="/products/{{$product->id}}">{{$product->name}}</a>
                                                                         </td>
-                                                                        @if($promotion->type_discount === "percent")
+                                                                        @if($promotion->promotions_products->type_discount
+                                                                        === "percent")
                                                                         <td class="li-product-name"><a
                                                                                 href="/products/{{$product->id}}">{{$percent}}%</a>
                                                                         </td>

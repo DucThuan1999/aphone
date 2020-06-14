@@ -66,6 +66,7 @@ class RegisterPageController extends Controller
         $address->district_id = $request->district;
         $address->ward_id = $request->ward;
         $address->street = $request->street;
+        $address->default = 1;
         $address->save();
 
         // Auth::attempt(['email' => $user->email, 'password' => $user->password]);

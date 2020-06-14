@@ -12,4 +12,9 @@ class Promotions extends Model
     {
         return $this->belongsToMany('App\Products', 'promotions_products', 'promotion_id', 'product_id')->withPivot(['percent', 'type_discount', 'price_discount']);
     }
+
+    function promotions_products()
+    {
+        return $this->hasOne('App\Promotions_products', 'promotion_id', 'id');
+    }
 }
