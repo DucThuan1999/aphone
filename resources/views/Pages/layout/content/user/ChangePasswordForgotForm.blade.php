@@ -12,11 +12,11 @@
                             <div class="col-md-12 col-12 mb-20" style="display:none">
                                 <input class="mb-0" name="email" type="hidden" id="input-email">
                             </div>
-                            <div class="col-md-12 col-12 mb-20">
+                            {{-- <div class="col-md-12 col-12 mb-20">
                                 <label>Mật khẩu hiện tại:</label>
                                 <input class="mb-0" name="password_old" type="password"
                                     placeholder="Nhập mật khẩu hiện tại">
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-12 col-12 mb-20">
                                 <label>Mật khẩu mới:</label>

@@ -47,14 +47,14 @@ class ForgotPasswordController extends Controller
         $this->validate(
             $request,
             [
-                'password_old' => 'required|min:6|max:32',
+                // 'password_old' => 'required|min:6|max:32',
                 'password_new' => 'required|min:6|max:32',
                 'password_new_confirm' => 'required|same:password_new',
             ],
             [
-                'password_old.required' => 'Vui lòng điền mật khẩu cũ !!!',
-                'password_old.min' => 'Mật khẩu tối thiểu 6 ký tự',
-                'password_old.max' => 'Mật khẩu tối đa 32 ký tự',
+                // 'password_old.required' => 'Vui lòng điền mật khẩu cũ !!!',
+                // 'password_old.min' => 'Mật khẩu tối thiểu 6 ký tự',
+                // 'password_old.max' => 'Mật khẩu tối đa 32 ký tự',
                 'password_new.required' => 'Vui lòng điền mật khẩu mới !!!',
                 'password_new.min' => 'Mật khẩu tối thiểu 6 ký tự',
                 'password_new.max' => 'Mật khẩu tối đa 32 ký tự',
@@ -63,17 +63,18 @@ class ForgotPasswordController extends Controller
             ]
         );
 
-        $password_old = $request->password_old;
+        // $password_old = $request->password_old;
         $password_new = $request->password_new;
         $password_new_confirm = $request->password_new_confirm;
         $email = $request->email;
 
-        if ($email && $password_old && $password_new && $password_new_confirm) {
+        // if ($email && $password_old && $password_new && $password_new_confirm) {
+        if ($email && $password_new && $password_new_confirm) {
             $user = Users::where('email', $email)->first();
-            if ($user && Hash::check($password_old, $user->password)) {
-                $user->update(['password' => bcrypt($password_new)]);
-                return redirect('/login')->with('loginAlertSuccess', 'Đổi mật khẩu thành công !!!');
-            }
+            // if ($user && Hash::check($password_old, $user->password)) {
+            $user->update(['password' => bcrypt($password_new)]);
+            return redirect('/login')->with('loginAlertSuccess', 'Đổi mật khẩu thành công !!!');
+            // }
         }
         return back()->with('loginAlert', 'Vui lòng kiểm tra lại mật khẩu !!!');
     }
