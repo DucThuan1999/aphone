@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Products;
 use App\Categories;
+use App\Comment;
 use App\Suppliers;
 use App\Images;
 use App\Promotions;
@@ -66,8 +67,10 @@ class HomePageController extends Controller
             $product = Products::find($id);
             $encloseProducts = Products::where('category_id', $product->category_id)->get();
             $images = Images::where('product_id', $id)->get();
+            $comments = Comment::where('product_id', $id)->get();
+            // dd($comments);
 
-            return view('Pages.SingleProduct', ['product' => $product, 'encloseProducts' => $encloseProducts, 'images' => $images]);
+            return view('Pages.SingleProduct', ['product' => $product, 'encloseProducts' => $encloseProducts, 'images' => $images, 'comments' => $comments]);
         } else
             return null;
     }

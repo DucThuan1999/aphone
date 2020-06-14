@@ -165,7 +165,7 @@
                 <div class="product-reviews">
                     <div class="product-details-comment-block">
                         <div class="comment-review">
-                            <span>Nhận xét </span>
+                            <span>Đánh giá tổng</span>
                             <ul class="rating">
                                 @for($i=0;$i< 5;$i++) @if($i<$product->rate)
                                     <li><i class="fa fa-star-o"></i></li>
@@ -176,6 +176,26 @@
                                     @endfor
                             </ul>
                         </div>
+                        @foreach ($comments as $comment)
+                        <div class="comment-details">
+                            @empty($comment)
+                            @else
+                            <h4 class="title-block">{{$comment->users->first()->firstname}}
+                                {{$comment->users->first()->lastname}}</h4>
+                            <p>{{$comment->content}}</p>
+                            <ul class="rating">
+                                @for($i=0;$i< 5;$i++) @if($i<$comment->user_rate)
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    @else
+                                    <li class="no-star"><i class="fa fa-star-o"></i>
+                                    </li>
+                                    @endif
+                                    @endfor
+                            </ul>
+                            @endempty
+                        </div>
+                        @endforeach
+
                         <div class="review-btn">
                             <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">VIẾT ĐÁNH
                                 GIÁ</a>

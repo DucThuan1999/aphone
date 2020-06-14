@@ -1,7 +1,14 @@
 @php
 if($product->promotions->first()){
+if($product->promotions->first()->pivot->type_discount == 'percent'){
 $percent = $product->promotions->first()->pivot->percent;
 $new_price = $product->price * (1 - $percent / 100);
+}
+if($product->promotions->first()->pivot->type_discount == 'price'){
+$price_discount = $product->promotions->first()->pivot->price_discount;
+$new_price = $product->price -$price_discount;
+}
+
 }
 @endphp
 <!-- content-wraper start -->
@@ -44,6 +51,7 @@ $new_price = $product->price * (1 - $percent / 100);
                                     @endfor
                             </ul>
                         </div>
+                        @if($product->status == 1)
                         <div class="price-box pt-20">
                             @empty($product->promotions->first())
                             <span class="new-price new-price-2">{{number_format($product->price)}} đ</span>
@@ -53,12 +61,17 @@ $new_price = $product->price * (1 - $percent / 100);
                                 style="text-decoration: line-through">{{number_format($product->price)}} đ</span>
                             @endempty
                         </div>
+                        @else
+                        <br>
+                        <h4 class="text-danger">Ngừng kinh doanh</h4>
+                        @endif
                         <div class="product-desc">
                             <p>
                                 <span>{{$product->content}}
                                 </span>
                             </p>
                         </div>
+                        @if($product->status == 1)
                         <div class="product-variants">
                             <div class="produt-variants-size">
                                 <label>Màu sắc</label>
@@ -66,6 +79,7 @@ $new_price = $product->price * (1 - $percent / 100);
                                 </select>
                             </div>
                         </div>
+
                         <div class="single-add-to-cart">
                             <span id="color-alert" class="text-danger"></span>
                             <form action="#" class="cart-quantity">
@@ -80,16 +94,23 @@ $new_price = $product->price * (1 - $percent / 100);
                                     </div>
 
                                 </div>
-                                @empty($product->promotions->first())
-                                <button onclick="addCart({{$product->id}})" class=" add-to-cart" type="button"
-                                    style="font-weight:bold">Thêm vào giỏ</button>
-                                @else
+                                @empty(!$product->promotions->first())
+                                @if($product->promotions->first()->pivot->type_discount == 'percent')
                                 <button onclick="addCart({{$product->id}},{{$percent}})" class=" add-to-cart"
                                     type="button" style="font-weight:bold">Thêm vào giỏ</button>
-                                @endempty
 
+                                @else
+                                <button onclick="addCart({{$product->id}})" class=" add-to-cart" type="button"
+                                    style="font-weight:bold">Thêm vào giỏ</button>
+                                @endif
+                                @else
+                                <button onclick="addCart({{$product->id}})" class=" add-to-cart" type="button"
+                                    style="font-weight:bold">Thêm vào giỏ</button>
+                                @endempty
                             </form>
                         </div>
+                        @else
+                        @endif
                     </div>
                 </div>
             </div>

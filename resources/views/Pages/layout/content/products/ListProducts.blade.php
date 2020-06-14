@@ -13,6 +13,24 @@
                             <div class="product-area shop-product-area">
                                 <div class="row">
                                     @foreach($productsPagination as $product)
+                                    @empty($product->promotions->first()->pivot->type_discount)
+                                    @else
+                                    @php
+                                    switch ($product->promotions->first()->pivot->type_discount) {
+                                    case 'percent':
+                                    $percent = $product->promotions->first()->pivot->percent;
+                                    $new_price = $product->price * (1 - $percent / 100);
+                                    break;
+                                    case 'price':
+                                    $price_discount = $product->promotions->first()->pivot->price_discount;
+                                    $new_price = $product->price - $price_discount;
+                                    break;
+
+                                    default:
+                                    break;
+                                    }
+                                    @endphp
+                                    @endempty
                                     <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
@@ -20,10 +38,12 @@
                                                 <a href="/products/{{$product->id}}">
                                                     <img src="{{$product->image}}" alt="Li's Product Image">
                                                 </a>
-                                                @empty($product->promotions->first()->pivot->percent)
+                                                @empty($product->promotions->first()->pivot->type_discount)
                                                 @else
+                                                @if($product->promotions->first()->pivot->type_discount == 'percent')
                                                 <span
                                                     class="sticker ">-{{$product->promotions->first()->pivot->percent}}%</span>
+                                                @endif
                                                 @endempty
                                             </div>
                                             <div class="product_desc">
@@ -49,12 +69,12 @@
                                                             href="/products/{{$product->id}}">{{$product->name}}</a>
                                                     </h4>
                                                     <div class="price-box">
-                                                        @empty($product->promotions->first()->pivot->percent)
+                                                        @empty($product->promotions->first()->pivot->type_discount)
                                                         <span
                                                             class="new-price">{{number_format($product->price)}}đ</span>
                                                         @else
                                                         <span
-                                                            class="new-price new-price-2">{{number_format($product->price * (1 - $product->promotions->first()->pivot->percent / 100))}}
+                                                            class="new-price new-price-2">{{number_format($new_price)}}
                                                             đ</span>
                                                         <span class="old-price">{{number_format($product->price)}}
                                                             đ</span>

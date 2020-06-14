@@ -44,7 +44,7 @@ class CheckoutController extends Controller
     {
         $user = Auth::user();
         $cart = Cart::instance($user)->content();
-        Cart::instance($user)->setGlobalDiscount($request->percent);
+
         $address = new Address();
         $bill = new Bills();
 
@@ -57,10 +57,30 @@ class CheckoutController extends Controller
 
             $address->save();
         }
-        $bill->status = 1; // đang xử lý
-        $bill->total = (float) str_replace(',', '', Cart::priceTotal(0));
+
+        foreach ($cart as $itemCart) {
+            $product = Products::find($itemCart->id);
+            if (isset($product->promotions->first()->pivot->type_discount)) {
+                if ($product->promotions->first()->pivot->type_discount === "percent") {
+                    $percent = $product->promotions->first()->pivot->percent;
+                    Cart::instance($user)->setDiscount($itemCart->rowId, $percent);
+                    $bill->total = (float) str_replace(',', '', Cart::priceTotal(0));
+                    $bill->total_discount += (float) str_replace(',', '', Cart::discount(0));
+                }
+                if ($product->promotions->first()->pivot->type_discount === "price") {
+                    $price_discount = $product->promotions->first()->pivot->price_discount;
+                    Cart::update($itemCart->rowId, ['price' => $itemCart->price - $price_discount]);
+                    $bill->total = (float) str_replace(',', '', Cart::priceTotal(0)) - $price_discount;
+                    $bill->total_discount += $price_discount;
+                }
+            } else {
+                $bill->total = (float) str_replace(',', '', Cart::priceTotal(0));
+                Cart::instance($user)->setGlobalDiscount($request->percent);
+                $bill->total_discount = (float) str_replace(',', '', Cart::discount(0));
+            }
+        }
+        $bill->status = 0; // đang xử lý
         $bill->user_id = $user->id;
-        $bill->total_discount = (float) str_replace(',', '', Cart::discount(0));
         $bill->note = $request->note;
         $bill->payment = $request->method_payment;
         $bill->address_id = $request->address != null ? $request->address : $address->id;
@@ -71,21 +91,33 @@ class CheckoutController extends Controller
             $info_bill = new Info_bills();
             $info_bill->bill_id = $bill->id;
             $info_bill->product_id = $itemCart->id;
-            $info_bill->price = $itemCart->price;
             $info_bill->qty = $itemCart->qty;
-            $info_bill->discount = $itemCart->discount;
-            // $info_bill->save();
+            $info_bill->color_id = $itemCart->options->colorSelected;
+            $product = Products::find($itemCart->id);
+            if (isset($product->promotions->first()->pivot->type_discount)) {
+                if ($product->promotions->first()->pivot->type_discount === "percent") {
+                    $info_bill->price = $itemCart->price * (1 -  $product->promotions->first()->pivot->percent / 100);
+                    $info_bill->discount += $itemCart->price *  $product->promotions->first()->pivot->percent / 100;
+                } else {
+                    $info_bill->price = $itemCart->price -  $product->promotions->first()->pivot->price_discount;
+                    $info_bill->discount += $product->promotions->first()->pivot->price_discount;
+                }
+            } else {
+                $info_bill->price = $itemCart->price;
+                $info_bill->discount = $itemCart->discount;
+            }
+            $info_bill->save();
             array_push($array_info_bill, $info_bill);
         }
 
-        if ($bill->total >= 7000000) {
-            Mail::to($user)->send(new Deposit($user));
-            return view('Pages.Deposit');
-        } else {
-            Mail::to($user)->send(new ConfirmOrder($user));
-            return redirect('/checkout/success');
-        }
-        // return ['cart' => $cart, 'bill' => $bill, 'address' => $address, $array_info_bill];
+        // if ($bill->total >= 7000000) {
+        //     Mail::to($user)->send(new Deposit($user));
+        //     return view('Pages.Deposit');
+        // } else {
+        Mail::to($user)->send(new ConfirmOrder($user, Cart::instance($user)->content()));
+        return redirect('/checkout/success');
+        // }
+        // return ['cart' => $cart, 'bill' => $bill, 'address' => $address, $array_info_bill, 'percent' => $request->percent];
     }
 
     function updateQty()

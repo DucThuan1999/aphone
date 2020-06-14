@@ -46,11 +46,11 @@
                                                     @if($color->id ==
                                                     $itemCart->options->colorSelected)
                                                     <option selected value="{{$color->id}}">
-                                                        {{$color->name}}({{$color->products->first()->pivot->quantity}})
+                                                        {{$color->name}}({{$color->products->where('id',$itemCart->id)->first()->pivot->quantity}})
                                                     </option>
                                                     @else
                                                     <option value="{{$color->id}}">
-                                                        {{$color->name}}({{$color->products->first()->pivot->quantity}})
+                                                        {{$color->name}}({{$color->products->where('id',$itemCart->id)->first()->pivot->quantity}})
                                                     </option>
                                                     @endif
                                                     @endforeach

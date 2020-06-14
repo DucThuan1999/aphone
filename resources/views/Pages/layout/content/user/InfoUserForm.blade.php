@@ -10,6 +10,7 @@
                         <li><a href="/infouser">Thông tin tài khoản</a></li>
                         <li><a href="/cart">Giỏ hàng của tôi</a></li>
                         <li><a href="/wishlist">Sản phẩm yêu thích</a></li>
+                        <li><a href="/order">Đơn hàng của tôi</a></li>
                     </ul>
                 </div>
             </div>

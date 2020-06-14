@@ -3,10 +3,12 @@
 namespace App\Mail;
 
 use App\Users;
+use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 
 class ConfirmOrder extends Mailable
 {
@@ -17,11 +19,13 @@ class ConfirmOrder extends Mailable
      *
      * @return void
      */
-    public $user;
+    public $user, $cart;
 
-    public function __construct(Users $user)
+
+    public function __construct(Users $user, Collection $cart)
     {
         $this->user = $user;
+        $this->cart = $cart;
     }
     /**
      * Build the message.

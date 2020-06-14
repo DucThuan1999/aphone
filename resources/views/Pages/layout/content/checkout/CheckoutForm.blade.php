@@ -1,6 +1,7 @@
 <?php
     if(Auth::check()){
-        $cart = Cart::instance(Auth::user())->content();
+        $user = Auth::user();
+        $cart = Cart::instance($user)->content();
     }else{
         $cart = Cart::content();
     }    
@@ -138,17 +139,20 @@
                                 <tfoot>
                                     <tr class="cart-subtotal">
                                         <th>Tổng tiền</th>
-                                        <td><span id="span_price_total" class="amount">{{Cart::priceTotal(0)}} đ</span>
+                                        <td><span id="span_price_total"
+                                                class="amount">{{Cart::instance($user)->priceTotal(0)}} đ</span>
                                         </td>
                                     </tr>
                                     <tr class="cart-subtotal">
                                         <th>Giảm giá</th>
-                                        <td><span id="span_discount_price" class="amount">{{Cart::discount(0)}} đ</span>
+                                        <td><span id="span_discount_price"
+                                                class="amount">{{Cart::instance($user)->discount(0)}} đ</span>
                                         </td>
                                     </tr>
                                     <tr class="order-total">
                                         <th>Thành tiền</th>
-                                        <td><strong><span id="span_total" class="amount">{{Cart::total(0)}}
+                                        <td><strong><span id="span_total"
+                                                    class="amount">{{Cart::instance($user)->total(0)}}
                                                     đ</span></strong></td>
                                     </tr>
                                 </tfoot>

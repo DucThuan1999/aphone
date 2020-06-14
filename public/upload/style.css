@@ -347,7 +347,7 @@ a.review-links {
     background: #fed700 none repeat scroll 0 0;
     color: #242424;
     display: inline-block;
-    font-family: Montserrat;
+    /* font-family: Montserrat; */
     font-size: 14px;
     font-weight: 700;
     height: 50px;

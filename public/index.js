@@ -11,7 +11,7 @@ function removeCart(rowId) {
         showSnackbar("Đã xoá sản phẩm trong giỏ hàng !!!");
 
         let count_cart = document.getElementById("count_cart");
-        count_cart.innerText = parseInt(count_cart.textContent) - 1;
+        count_cart.innerText = data.count;
         if (data) {
             $("#showTotalPrice").html(data[0]);
             $("#showTotalPriceMiniCart").html(data[1] + " đ");

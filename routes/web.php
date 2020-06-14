@@ -84,6 +84,10 @@ Route::group(['prefix' => 'cart'], function () {
     Route::post('/paypal/getbuttondeposit', 'CartController@getPaypalButtonDeposit');
 });
 
+Route::group(['prefix' => 'order'], function () {
+    Route::get('/', 'OrderController@index');
+    Route::get('{id}', 'OrderController@single');
+});
 
 Route::group(['prefix' => 'checkout'], function () {
     Route::get("/", 'CheckoutController@index');

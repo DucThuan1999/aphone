@@ -38,7 +38,16 @@ class CartController extends Controller
                 'img' => $product->image
             ]);
             $rowId = $cart->rowId;
-            Cart::instance($user)->setDiscount($rowId, $discount);
+            if (isset($product->promotions->first()->pivot->type_discount)) {
+                if ($product->promotions->first()->pivot->type_discount === "percent") {
+                    Cart::instance($user)->setDiscount($rowId, $discount);
+                }
+                if ($product->promotions->first()->pivot->type_discount === "price") {
+                    $price_discount = $product->promotions->first()->pivot->price_discount;
+                    Cart::update($rowId, ['price' => $product->price - $price_discount]);
+                }
+            }
+
             // return $this->getLiMiniCart(Cart::instance($user)->content());
             return [
                 'miniCart' => $this->getLiMiniCart(Cart::instance($user)->content()),
@@ -83,7 +92,7 @@ class CartController extends Controller
         }
 
         if ($request->inCartPage == true)
-            return [$this->getTotalPriceCart(), Cart::total(0)];
+            return [$this->getTotalPriceCart(), Cart::total(0), 'count' => Cart::instance($user)->count()];
     }
 
     function destroyCart(Request $request)
@@ -154,10 +163,12 @@ class CartController extends Controller
                             return actions.order.capture().then(function (details) {
                                 // This function shows a transaction success message to your buyer.
                                 console.log(details);
+                                $("#formCheckout").submit();
                                 alert(
                                     "Transaction completed by " +
                                         details.payer.name.given_name
                                 );
+                                //window.location.href = "/checkout/success";
                             });
                         },
                     })
